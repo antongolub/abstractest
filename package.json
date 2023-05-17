@@ -1,7 +1,7 @@
 {
-  "name": "@antongolub/blank",
+  "name": "abstractest",
   "version": "0.0.0",
-  "description": "Blank TS package",
+  "description": "Abstract testing processor",
   "type": "module",
   "main": "target/cjs/index.cjs",
   "exports": {
@@ -29,14 +29,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antongolub/blank-ts.git"
+    "url": "git+https://github.com/antongolub/abstractest.git"
   },
   "author": "Anton Golub <antongolub@antongolub.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/antongolub/blank-ts/issues"
+    "url": "https://github.com/antongolub/abstractest/issues"
   },
-  "homepage": "https://github.com/antongolub/blank-ts#readme",
+  "keywords": ["expect", "describe", "it", "test", "astract"],
+  "homepage": "https://github.com/antongolub/abstractest#readme",
   "dependencies": {},
   "devDependencies": {
     "@types/node": "^20.1.4",

@@ -15,6 +15,7 @@ const esmConfig = {
     '.js': '.mjs'
   },
   plugins: [nodeExternalsPlugin()],
+  external: ['node:*'],
   tsconfig: './tsconfig.json'
 }
 

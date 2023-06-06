@@ -1,15 +1,15 @@
-import {Describe, Runner, SuiteFn, Test, TestFn} from './interface'
+import {Describe, Runner, SuiteFn, Test, TestFn, Expect} from './interface'
 import {nativeRunner} from './runner/native'
 import {jestRunner} from './runner/jest'
 
-export const it: Test = (name: string, fn: TestFn) => {
+export const it: Test = (name: string, fn: TestFn) =>
   getRunner().api.it(name, fn)
-}
-export const describe: Describe = (name: string, fn: SuiteFn) => {
-  getRunner().api.describe(name, fn)
-}
 
-let runner
+export const describe: Describe = (name: string, fn: SuiteFn) =>
+  getRunner().api.describe(name, fn)
+
+export const expect: Expect = (value) =>
+  getRunner().api.expect(value)
 
 export const getRunner = (runnerName = process.env.ABSTRACTEST_RUNNER || 'native'): Runner => {
   process.env.ABSTRACTEST_RUNNER = runnerName

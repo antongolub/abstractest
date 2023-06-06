@@ -1,9 +1,9 @@
-import {it, describe} from 'abstractest'
+import {it, describe, expect} from 'abstractest'
 import {foo} from '../../main/ts/foo'
 
 describe('foo()', () => {
   it('returns bar ', () => {
-    console.log(foo())
+    expect(foo()).toEqual('bar + baz')
   })
 })
 

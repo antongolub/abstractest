@@ -1,10 +1,11 @@
 import path from 'node:path';
-import fs from 'node:fs';
-import {Runner} from '../interface'
-import cp from 'node:child_process'
+import fs from 'node:fs/promises';
 import {createRequire} from 'node:module'
+import {Runner} from '../interface'
+import {spawn} from './util'
 
 export const jestRunner: Runner = ({
+  name: 'jest',
   api: {
     it(name, fn) {
       // @ts-ignore
@@ -13,18 +14,20 @@ export const jestRunner: Runner = ({
     describe(name, fn) {
       // @ts-ignore
       return globalThis.describe(name, fn)
+    },
+    expect(value) {
+      // @ts-ignore
+      return globalThis.expect(value)
     }
   },
   async run({cwd, include}) {
-    // console.log('cwd!!!', cwd)
-    // @ts-ignore
-    // const jest = (await import('jest')).default
     const require = createRequire(import.meta.url)
-    const jestConfig = path.resolve(cwd, `jest-${Math.random().toString(36).slice(2)}.config.json`)// temporaryFile({name: 'jest.config.json'})
-    fs.writeFileSync(jestConfig, JSON.stringify({
+    const jestBinPath = path.resolve(require.resolve('jest'), '../../bin/jest.js')
+    const jestConfigPath = path.resolve(cwd, `jest-${Math.random().toString(36).slice(2)}.config.json`) // temporaryFile({name: 'jest.config.json'})
+    await fs.writeFile(jestConfigPath, JSON.stringify({
       preset: 'ts-jest',
       transform: {
-        '^.+\\.tsx?$': ['ts-jest', {useESM: true}]
+        '^.+\\.tsx?$': ['ts-jest', {useESM: true, tsconfig: jestConfigPath}]
       },
       moduleFileExtensions: [
         'ts',
@@ -47,11 +50,10 @@ export const jestRunner: Runner = ({
 
     // const options = {
     //   projects: [
-    //     jestConfig,
+    //     jestConfigPath,
     //   ],
     // }
-
-    // console.log('jestopts=', options)
+    // const jest = (await import('jest')).default
     // return jest
     //   .runCLI(options, options.projects)
     //   .then((success: any) => {
@@ -60,22 +62,22 @@ export const jestRunner: Runner = ({
     //   .catch((failure: any) => {
     //     console.error('failure=', failure);
     //   })
+    try {
+      const {stdout, stderr} = await spawn('node', [
+        '--experimental-specifier-resolution=node',
+        '--experimental-vm-modules',
+        jestBinPath,
+        '--config',
+        jestConfigPath
+      ], {
+        cwd,
+        env: process.env
+      })
 
-    console.log('env', process.env)
-
-    const result = cp.spawnSync('node', [
-      '--experimental-specifier-resolution=node',
-      '--experimental-vm-modules',
-      path.resolve(require.resolve('jest'), '../../bin/jest.js'),
-      '--config',
-      jestConfig
-    ], {
-      cwd,
-      env: process.env
-    })
-
-    console.log('stdio=', result.stdout.toString(), result.stderr.toString())
-
-    // console.log(global)
+      console.log('stdout', stdout)
+      console.log('stderr', stderr)
+    } finally {
+      await fs.unlink(jestConfigPath)
+    }
   }
 })

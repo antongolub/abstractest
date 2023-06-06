@@ -11,6 +11,7 @@ export type Describe = (name: string, fn: SuiteFn) => void
 export type TestApi = {
   describe: Describe
   it: Test
+  expect: Expect
 }
 
 export type Run = (opts: {cwd: string, include: string[]}) => Promise<any>
@@ -19,4 +20,8 @@ export type Runner = {
   name: string
   run: Run
   api: TestApi
+}
+
+export type Expect = (val: any) => {
+  toEqual(val: any): void
 }

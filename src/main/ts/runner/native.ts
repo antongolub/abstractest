@@ -1,15 +1,21 @@
+import assert from 'node:assert'
 import {it, describe} from 'node:test'
 import {Runner} from '../interface'
 
+const expect = (input: any) => ({
+  toEqual(expected: any) {
+    assert.equal(input, expected)
+  }
+})
+
 export const nativeRunner: Runner = {
   name: 'native',
-  run() {},
+  run({cwd, include}) {
+    return Promise.resolve(undefined)
+  },
   api: {
-    it(name, fn) {
-      return it(name, fn)
-    },
-    describe(name, fn) {
-      return describe(name, fn)
-    }
+    it,
+    describe,
+    expect,
   }
 }

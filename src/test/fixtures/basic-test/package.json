@@ -1,0 +1,8 @@
+{
+  "name": "basic-test",
+  "type": "module",
+  "dependencies": {
+    "abstractest": "*"
+  },
+  "scripts": {}
+}

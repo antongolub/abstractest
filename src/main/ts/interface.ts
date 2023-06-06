@@ -13,7 +13,7 @@ export type TestApi = {
   it: Test
 }
 
-export type Run = (opts?: Record<string, any>) => void
+export type Run = (opts: {cwd: string, include: string[]}) => Promise<any>
 
 export type Runner = {
   name: string

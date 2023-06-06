@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Abstract testing processor",
   "type": "module",
-  "main": "target/cjs/index.cjs",
+  "main": "./target/cjs/index.cjs",
   "exports": {
     ".": {
       "types": "./target/dts/index.d.ts",

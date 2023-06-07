@@ -1,9 +1,9 @@
 # abstractest
-Abstract testing processor
+> Abstract testing processor
 
 ## Hypothesis
 Find out if it's possible to declare unit tests in some _generic_ notation,
-and execute them by any _appropriate_ provider.
+and execute them via any _appropriate_ provider.
 
 ## Usage
 Write a test:

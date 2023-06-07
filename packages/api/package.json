@@ -12,8 +12,8 @@
       "default": "./target/esm/index.mjs"
     }
   },
-  "module": "./target/esm/index.mjs",
   "types": "./target/dts/index.d.ts",
+  "module": "./target/esm/index.mjs",
   "files": [
     "target/cjs",
     "target/esm",

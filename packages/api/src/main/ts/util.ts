@@ -1,4 +1,5 @@
 import cp from 'node:child_process'
+import {createRequire} from 'node:module'
 
 export const spawn = (
   cmd: string,
@@ -38,3 +39,5 @@ export const spawn = (
     (status ? reject : resolve)(result)
   })
 })
+
+export const r = import.meta.url ? createRequire(import.meta.url) : require

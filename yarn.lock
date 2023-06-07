@@ -25,6 +25,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@abstractest/jest@workspace:packages/jest":
+  version: 0.0.0-use.local
+  resolution: "@abstractest/jest@workspace:packages/jest"
+  dependencies:
+    "@abstractest/infra": "workspace:*"
+    "@types/node": "npm:^20.1.4"
+    abstractest: "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@abstractest/monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "@abstractest/monorepo@workspace:."
@@ -1503,7 +1513,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"abstractest@workspace:packages/api":
+"abstractest@workspace:*, abstractest@workspace:packages/api":
   version: 0.0.0-use.local
   resolution: "abstractest@workspace:packages/api"
   dependencies:

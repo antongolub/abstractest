@@ -39,7 +39,14 @@ export const nativeRunner: Runner = {
   },
   api: {
     it(name, fn) {
-      return it(name, async (_ctx, done) => { await fn(done); done() })
+      return it(name, (_ctx, done) => {
+        let cb = done
+        const result = fn(() => { cb = () => {}; done() })
+
+        return typeof result?.then == 'function'
+          ? result.then(cb)
+          : cb()
+      })
     },
     describe(name, fn) {
       return describe(name, fn)

@@ -27,7 +27,7 @@ export const jestRunner: Runner = ({
     await fs.writeFile(jestConfigPath, JSON.stringify({
       preset: 'ts-jest',
       transform: {
-        '^.+\\.tsx?$': ['ts-jest', {useESM: true, tsconfig: jestConfigPath}]
+        '^.+\\.tsx?$': ['ts-jest', {useESM: true}]
       },
       moduleFileExtensions: [
         'ts',

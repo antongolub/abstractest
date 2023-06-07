@@ -5,7 +5,7 @@ const esmConfig = {
   entryPoints: ['./src/main/ts/index.ts'],
   outdir: './target/esm',
   bundle: true,
-  minify: true,
+  minify: false,
   sourcemap: true,
   sourcesContent: false,
   platform: 'node',
@@ -22,7 +22,6 @@ const esmConfig = {
 const cjsConfig = {
   ...esmConfig,
   outdir: './target/cjs',
-  platform: 'node',
   target: 'es6',
   format: 'cjs',
   outExtension: {

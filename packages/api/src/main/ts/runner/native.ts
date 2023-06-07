@@ -18,6 +18,7 @@ export const nativeRunner: Runner = {
   async run({cwd, include}) {
     const require = createRequire(import.meta.url)
     const suites: string[] = (await glob(include, {cwd, absolute: true, onlyFiles: true})).map(suite => pathToFileURL(suite).toString())
+
     const loader = require.resolve('ts-node/esm')
     const script = `await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
     const {stdout, stderr} = await spawn('c8', [
@@ -38,7 +39,7 @@ export const nativeRunner: Runner = {
   },
   api: {
     it(name, fn) {
-      return it(name, (_ctx, done) => fn(done))
+      return it(name, async (_ctx, done) => { await fn(done); done() })
     },
     describe(name, fn) {
       return describe(name, fn)

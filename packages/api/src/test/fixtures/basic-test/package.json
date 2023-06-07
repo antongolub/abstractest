@@ -1,8 +1,11 @@
 {
   "name": "basic-test",
   "type": "module",
+  "private": true,
+  "scripts": {
+    "test:native": "node ../../../../target/esm/index.mjs"
+  },
   "dependencies": {
     "abstractest": "*"
-  },
-  "scripts": {}
+  }
 }

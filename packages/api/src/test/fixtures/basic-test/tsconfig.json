@@ -3,7 +3,6 @@
     "rootDir": "./src/main/ts/",
     "baseUrl": "./src/main/ts/",
     "esModuleInterop": true,
-    "moduleResolution": "node",
     "module": "esnext",
     "target": "esnext",
     "allowJs": true

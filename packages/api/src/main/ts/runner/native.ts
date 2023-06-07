@@ -37,8 +37,12 @@ export const nativeRunner: Runner = {
     })
   },
   api: {
-    it,
-    describe,
+    it(name, fn) {
+      return it(name, (_ctx, done) => fn(done))
+    },
+    describe(name, fn) {
+      return describe(name, fn)
+    },
     expect,
   }
 }

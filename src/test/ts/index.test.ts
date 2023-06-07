@@ -1,9 +1,11 @@
 import * as assert from 'node:assert'
-import { describe, it } from 'node:test'
-import { foo } from '../../main/ts'
+import { it, describe } from 'node:test'
+import { it as _it, describe as _describe, run } from '../../main/ts'
 
-describe('foo()', () => {
-  it('is callable', () => {
-    assert.equal(foo(), undefined)
+describe('index', () => {
+  it('has proper exports', () => {
+    assert.equal(typeof _it, 'function')
+    assert.equal(typeof _describe, 'function')
+    assert.equal(typeof run, 'function')
   })
 })

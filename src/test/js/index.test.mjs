@@ -1,9 +1,11 @@
 import assert from 'node:assert'
 import { describe, it } from 'node:test'
-import { foo } from 'abstractest'
+import { describe as _describe, it as _it, run } from 'abstractest'
 
-describe('mjs foo()', () => {
-  it('is callable', () => {
-    assert.equal(foo(), undefined)
+describe('mjs', () => {
+  it('exports are callable', () => {
+    assert.equal(typeof _it, 'function')
+    assert.equal(typeof _describe, 'function')
+    assert.equal(typeof run, 'function')
   })
 })

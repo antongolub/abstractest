@@ -7,12 +7,19 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const fixtures = resolve(__dirname, '../fixtures')
 
 describe('runner', () => {
-  it('runs', async () => {
-    const fixture =
-    await run({
+  it('jest', () =>
+    run({
       runner: 'jest',
       cwd: resolve(fixtures, 'basic-test'),
       include: ['src/test/ts/**/*']
     })
-  })
+  )
+
+  it('native', () =>
+    run({
+      runner: 'native',
+      cwd: resolve(fixtures, 'basic-test'),
+      include: ['src/test/ts/**/*']
+    })
+  )
 })

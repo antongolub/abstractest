@@ -1,6 +1,6 @@
-import {Describe, Runner, SuiteFn, Test, TestFn, Expect} from './interface'
-import {nativeRunner} from './runner/native'
-import {jestRunner} from './runner/jest'
+import {Describe, Runner, SuiteFn, Test, TestFn, Expect} from '../interface'
+import {nativeRunner} from './native'
+import {jestRunner} from './jest'
 
 export const it: Test = (name: string, fn: TestFn) =>
   getRunner().api.it(name, fn)
@@ -19,7 +19,6 @@ export const getRunner = (runnerName = process.env.ABSTRACTEST_RUNNER || 'native
 export const run = async (_opts: any = {}) => {
   const {runner, include, cwd} = normalizeOpts(_opts)
   await runner.run({include, cwd})
-  // await Promise.all(files.map(file => import(file)))
 }
 
 const normalizeOpts = (opts: any = {}): {runner: Runner, include: string[], cwd: string} => {

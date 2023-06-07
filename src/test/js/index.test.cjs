@@ -1,9 +1,11 @@
 const assert = require('node:assert')
 const { describe, it } = require('node:test')
-const { foo } = require('abstractest')
+const { it:_it, describe: _describe, run } = require('abstractest')
 
-describe('cjs foo()', () => {
-  it('is callable', () => {
-    assert.equal(foo(), undefined)
+describe('cjs', () => {
+  it('exports are callable', () => {
+    assert.equal(typeof _it, 'function')
+    assert.equal(typeof _describe, 'function')
+    assert.equal(typeof run, 'function')
   })
 })

@@ -1,2 +1,1 @@
-export * from './foo'
-export * from './runner'
+export * from './runner/index'

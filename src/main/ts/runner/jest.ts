@@ -40,7 +40,7 @@ export const jestRunner: Runner = ({
       extensionsToTreatAsEsm: ['.ts', '.tsx'],
       testEnvironment: 'node',
       collectCoverage: true,
-      coverageDirectory: './coverage',
+      coverageDirectory: './target/coverage',
       collectCoverageFrom: [
         'src/main/**/*.ts'
       ],
@@ -71,11 +71,8 @@ export const jestRunner: Runner = ({
         jestConfigPath
       ], {
         cwd,
-        env: process.env
+        env: process.env,
       })
-
-      console.log('stdout', stdout)
-      console.log('stderr', stderr)
     } finally {
       await fs.unlink(jestConfigPath)
     }

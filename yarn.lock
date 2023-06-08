@@ -32,12 +32,25 @@ __metadata:
     "@abstractest/infra": "workspace:*"
     "@types/node": "npm:^20.1.4"
     abstractest: "workspace:*"
+    jest: "npm:^29.5.0"
+    ts-jest: "npm:^29.1.0"
   languageName: unknown
   linkType: soft
 
 "@abstractest/monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "@abstractest/monorepo@workspace:."
+  languageName: unknown
+  linkType: soft
+
+"@abstractest/native@workspace:packages/native":
+  version: 0.0.0-use.local
+  resolution: "@abstractest/native@workspace:packages/native"
+  dependencies:
+    "@abstractest/infra": "workspace:*"
+    "@types/node": "npm:^20.1.4"
+    abstractest: "workspace:*"
+    fast-glob: "npm:^3.2.12"
   languageName: unknown
   linkType: soft
 

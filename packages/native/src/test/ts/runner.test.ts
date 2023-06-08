@@ -9,7 +9,7 @@ describe('runner()', () => {
   it('`run()` invokes `spawn` with proper args', async () => {
     const cwd = temporaryDirectory()
     api.spawn = (bin, args, opts) => {
-      assert.equal(bin, 'node')
+      assert.equal(bin, 'c8')
       assert.deepEqual(opts, {cwd, env: process.env})
       return Promise.resolve({stdout: '', stderr: ''})
     }
@@ -18,32 +18,41 @@ describe('runner()', () => {
   })
 
   describe('api', () => {
-    it('`it()` passes args to `jest.it`', async () => {
+    it('`it()` passes args to native `it`', async () => {
+      let calls = 0
+      let d = 0
       const name = 'foo'
-      const fn = () => {}
-      api.it = (_name, _fn) => {
+      const fn = () => { calls++ }
+
+      api.it = ((_name, _fn) => {
         assert.equal(_name, name)
-        assert.equal(_fn, fn)
-      }
+        assert.ok(_fn !== fn)
+        _fn({}, () => d++)
+        assert.equal(calls, 1)
+        assert.equal(d, 1)
+      }) as typeof it
+
       await runner.api.it(name, fn)
     })
 
-    it('`describe()` passes args to `jest.describe`', async () => {
+    it('`describe()` passes args to native `describe`', async () => {
       const name = 'foo'
       const fn = () => {}
-      api.describe = (_name, _fn) => {
+
+      api.describe = ((_name, _fn) => {
         assert.equal(_name, name)
         assert.equal(_fn, fn)
-      }
+      }) as typeof describe
+
       await runner.api.describe(name, fn)
     })
 
-    it('`expect()` passes args to `jest.expect`', async () => {
-      const a = 'foo'
-      api.expect = (_a) => {
-        assert.equal(_a, a)
-      }
-      await runner.api.expect(a)
+    describe('`expect()`', () => {
+      it('provides `toEqual`', () => {
+        runner.api.expect('a').toEqual('a')
+
+        assert.throws(() => runner.api.expect('a').toEqual('b'))
+      })
     })
   })
 

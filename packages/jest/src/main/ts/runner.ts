@@ -3,7 +3,7 @@ import fs from 'node:fs/promises'
 import {createRequire} from 'node:module'
 import {Runner, spawn} from 'abstractest'
 
-const r = (() => require || createRequire(import.meta.url))()
+const r = import.meta.url ? createRequire(import.meta.url) : require
 
 export const api: {
   spawn: typeof spawn
@@ -68,7 +68,7 @@ export const runner: Runner = ({
     //     console.error('failure=', failure);
     //   })
     try {
-      const {stdout, stderr} = await api.spawn('node', [
+      await api.spawn('node', [
         '--experimental-specifier-resolution=node',
         '--experimental-vm-modules',
         jestBinPath,

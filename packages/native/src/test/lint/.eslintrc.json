@@ -1,0 +1,13 @@
+{
+  "extends": ["eslint-config-qiwi"],
+  "rules": {},
+  "overrides": [
+    {
+      "files": ["runner.test.ts"],
+      "rules": {
+        "unicorn/consistent-function-scoping": "off",
+        "@typescript-eslint/no-empty-function": "off"
+      }
+    }
+  ]
+}

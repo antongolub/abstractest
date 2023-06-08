@@ -2,12 +2,18 @@
 
 const esbuild = require('esbuild')
 const { nodeExternalsPlugin } = require('esbuild-node-externals')
+const minimist = require("minimist");
 
+const {entry} = minimist(process.argv.slice(2), {
+  default: {
+    entry: './src/main/ts/index.ts'
+  }
+})
 const {argv} = process
 const bundle = !argv.includes('--no-bundle')
 
 const esmConfig = {
-  entryPoints: ['./src/main/ts/index.ts'],
+  entryPoints: entry.split(':'),
   outdir: './target/esm',
   bundle,
   minify: true,

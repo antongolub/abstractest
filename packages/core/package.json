@@ -1,5 +1,5 @@
 {
-  "name": "abstractest",
+  "name": "@abstractest/core",
   "version": "0.0.0",
   "description": "Abstract testing processor",
   "type": "module",
@@ -24,7 +24,7 @@
     "build:esm": "node src/scripts/build.cjs",
     "build:cjs": "node src/scripts/build.cjs --cjs",
     "build:dts": "tsc --emitDeclarationOnly --skipLibCheck --outDir target/dts",
-    "_build:docs": "typedoc --options src/main/typedoc",
+    "build:docs": "typedoc --options src/main/typedoc",
     "test": "concurrently 'npm:test:*'",
     "test:lint": "eslint -c src/test/lint/.eslintrc.json src",
     "test:unit": "c8 -r lcov -r text -o target/coverage -x src/scripts -x src/test -x target node --loader ts-node/esm --experimental-specifier-resolution=node --experimental-vm-modules src/scripts/test.mjs"

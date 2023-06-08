@@ -2,7 +2,7 @@ import assert from 'node:assert'
 import {createRequire} from 'node:module'
 import {describe, it} from 'node:test'
 import {pathToFileURL} from 'node:url'
-import {Runner, spawn} from 'abstractest'
+import {Runner, spawn} from '@abstractest/core'
 import glob from 'fast-glob'
 
 const r = import.meta.url ? createRequire(import.meta.url) : require

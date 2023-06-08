@@ -15,7 +15,7 @@
   "module": "target/esm/index.mjs",
   "types": "target/dts/index.d.ts",
   "dependencies": {
-    "abstractest": "workspace:*",
+    "@abstractest/core": "workspace:*",
     "fast-glob": "^3.2.12"
   },
   "devDependencies": {

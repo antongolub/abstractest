@@ -15,7 +15,9 @@
   "module": "target/esm/index.mjs",
   "types": "target/dts/index.d.ts",
   "dependencies": {
-    "abstractest": "workspace:*"
+    "abstractest": "workspace:*",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0"
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",

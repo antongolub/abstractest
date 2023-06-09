@@ -1,8 +1,8 @@
 import path from 'node:path'
 import fs from 'node:fs/promises'
 import {createRequire} from 'node:module'
+import os from 'node:os'
 import {Runner, spawn} from '@abstractest/core'
-import {temporaryFile} from 'tempy'
 
 const r = import.meta.url ? createRequire(import.meta.url) : require
 
@@ -29,7 +29,7 @@ export const runner: Runner = ({
   },
   async run({cwd, include}) {
     const jestBinPath = path.resolve(r.resolve('jest'), '../../bin/jest.js')
-    const jestConfigPath = temporaryFile({name: 'jest.config.json'}) // path.resolve(cwd, `jest-${Math.random().toString(36).slice(2)}.config.json`)
+    const jestConfigPath = path.resolve(await fs.realpath(os.tmpdir()), `jest-${Math.random().toString(36).slice(2)}.config.json`)
     await fs.writeFile(jestConfigPath, JSON.stringify({
       rootDir: cwd,
       preset: 'ts-jest',

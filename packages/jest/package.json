@@ -17,7 +17,6 @@
   "dependencies": {
     "@abstractest/core": "workspace:*",
     "jest": "^29.5.0",
-    "tempy": "^3.0.0",
     "ts-jest": "^29.1.0"
   },
   "devDependencies": {

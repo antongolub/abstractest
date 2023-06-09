@@ -59,7 +59,6 @@ __metadata:
     "@abstractest/infra": "workspace:*"
     "@types/node": "npm:^20.2.5"
     jest: "npm:^29.5.0"
-    tempy: "npm:^3.0.0"
     ts-jest: "npm:^29.1.0"
   languageName: unknown
   linkType: soft

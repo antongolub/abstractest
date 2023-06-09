@@ -5,15 +5,15 @@ import {r} from './util'
 const voidRunner: Runner = {
   name: 'void',
   api: {
-    it() {},
-    describe() {},
+    it() {/* noop */},
+    describe() {/* noop */},
     expect() {
       return {
-        toEqual(expected: any) {}
+        toEqual(expected: any) {/* noop */}
       }
     }
   },
-  async run() {}
+  async run() {/* noop */}
 }
 
 const stdRunners = new Map([

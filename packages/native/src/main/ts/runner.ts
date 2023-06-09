@@ -40,7 +40,7 @@ export const runner: Runner = {
     it(name, fn) {
       return api.it(name, (_ctx, done) => {
         let cb = done
-        const result = fn(() => { cb = () => {}; done() })
+        const result = fn(() => { cb = () => {/* noop */}; done() })
 
         return typeof result?.then == 'function'
           ? result.then(cb)

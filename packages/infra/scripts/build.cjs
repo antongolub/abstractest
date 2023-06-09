@@ -2,9 +2,10 @@
 
 const esbuild = require('esbuild')
 const { nodeExternalsPlugin } = require('esbuild-node-externals')
-const minimist = require("minimist");
+const minimist = require("minimist")
+const glob = require('fast-glob')
 
-const {entry} = minimist(process.argv.slice(2), {
+const {entry, external} = minimist(process.argv.slice(2), {
   default: {
     entry: './src/main/ts/index.ts'
   }
@@ -13,7 +14,7 @@ const {argv} = process
 const bundle = !argv.includes('--no-bundle')
 
 const esmConfig = {
-  entryPoints: entry.split(':'),
+  entryPoints: entry.split(':').map(e => e.includes('*') ? glob.sync(e, {absolute: false, onlyFiles: true}) : e).flat(1),
   outdir: './target/esm',
   bundle,
   minify: true,
@@ -25,8 +26,8 @@ const esmConfig = {
   outExtension: {
     '.js': '.mjs'
   },
-  external: ['node:*'],               // https://github.com/evanw/esbuild/issues/1466
-  plugins: [nodeExternalsPlugin()],   // https://github.com/evanw/esbuild/issues/619
+  external: bundle ? (external ? external.split(',') : ['node:*']) : undefined,  // https://github.com/evanw/esbuild/issues/1466
+  plugins: [nodeExternalsPlugin()],           // https://github.com/evanw/esbuild/issues/619
   tsconfig: './tsconfig.json'
 }
 

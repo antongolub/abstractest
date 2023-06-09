@@ -29,8 +29,10 @@ export const runner: Runner = ({
   },
   async run({cwd, include}) {
     const jestBinPath = path.resolve(r.resolve('jest'), '../../bin/jest.js')
-    const jestConfigPath = path.resolve(await fs.realpath(os.tmpdir()), `jest-${Math.random().toString(36).slice(2)}.config.json`)
+    // const jestSetupPath = path.resolve(await fs.realpath(os.tmpdir()), `jest-setup-${Math.random().toString(36).slice(2)}.mjs`)
+    const jestConfigPath = path.resolve(await fs.realpath(os.tmpdir()), `jest-config-${Math.random().toString(36).slice(2)}.json`)
     await fs.writeFile(jestConfigPath, JSON.stringify({
+      // setupFiles: [jestSetupPath],
       rootDir: cwd,
       preset: 'ts-jest',
       transform: {
@@ -54,6 +56,8 @@ export const runner: Runner = ({
       testMatch: include.map(item => `${cwd}/${item}`),
       testTimeout: 2000,
     }))
+
+    // await fs.writeFile(jestSetupPath,`import {loadRunner} from 'abstractest'; await loadRunner(process.env.ABSTRACTEST_RUNNER)`, 'utf8')
 
     // const options = {
     //   projects: [

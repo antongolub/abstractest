@@ -1,9 +1,9 @@
 {
-  "name": "@abstractest/native",
+  "name": "@abstractest/expect",
   "version": "0.0.0",
-  "description": "Native node:test runner for abstractest",
+  "description": "Assertion library for abstractest",
   "type": "module",
-  "main": "target/cjs/index.cjs",
+  "main": "./target/cjs/index.cjs",
   "exports": {
     ".": {
       "types": "./target/dts/index.d.ts",
@@ -12,27 +12,23 @@
       "default": "./target/esm/index.mjs"
     }
   },
-  "module": "target/esm/index.mjs",
-  "types": "target/dts/index.d.ts",
-  "dependencies": {
-    "@abstractest/core": "workspace:*",
-    "c8": "^7.14.0",
-    "fast-glob": "^3.2.12",
-    "ts-node": "^10.9.1"
-  },
-  "devDependencies": {
-    "@abstractest/infra": "workspace:*",
-    "@types/node": "^20.2.5"
-  },
+  "module": "./target/esm/index.mjs",
+  "types": "./target/dts/index.d.ts",
   "files": [
     "target/cjs",
     "target/esm",
     "target/dts"
   ],
+  "dependencies": {
+    "@jest/expect": "^29.5.0"
+  },
+  "devDependencies": {
+    "@abstractest/infra": "workspace:*"
+  },
   "scripts": {
     "build": "concurrently 'npm:build:*'",
-    "build:esm": "node ../infra/scripts/build.cjs --external='node:*,@jest/*' ",
-    "build:cjs": "node ../infra/scripts/build.cjs --cjs --external='node:*,@jest/*'",
+    "build:esm": "node ../infra/scripts/build.cjs",
+    "build:cjs": "node ../infra/scripts/build.cjs --cjs",
     "build:dts": "tsc --emitDeclarationOnly --skipLibCheck --outDir target/dts",
     "build:docs": "typedoc --options src/main/typedoc",
     "test": "concurrently 'npm:test:*'",

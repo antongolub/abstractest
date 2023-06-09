@@ -1,8 +1,8 @@
-import assert from 'node:assert'
 import {createRequire} from 'node:module'
 import {describe, it} from 'node:test'
 import {pathToFileURL} from 'node:url'
 import {Runner, spawn} from '@abstractest/core'
+import {expect} from '@abstractest/expect'
 import glob from 'fast-glob'
 
 const r = import.meta.url ? createRequire(import.meta.url) : require
@@ -12,12 +12,6 @@ export const api = {
   it,
   describe
 }
-
-const expect = (input: any) => ({
-  toEqual(expected: any) {
-    assert.equal(input, expected)
-  }
-})
 
 export const runner: Runner = {
   name: 'native',

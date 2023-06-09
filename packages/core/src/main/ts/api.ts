@@ -1,8 +1,6 @@
 import {pathToFileURL} from 'node:url'
 import {Describe, Runner, SuiteFn, Test, TestFn, Expect} from './interface'
 import {r} from './util'
-// import {nativeRunner} from './native'
-// import {jestRunner} from './jest'
 
 const voidRunner: Runner = {
   name: 'void',

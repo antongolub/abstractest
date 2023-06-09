@@ -11,11 +11,16 @@ __metadata:
   dependencies:
     "@abstractest/infra": "workspace:*"
     "@types/node": "npm:^20.2.5"
-    fast-glob: "npm:^3.2.12"
-    jest: "npm:^29.5.0"
-    tempy: "npm:^3.0.0"
-    ts-jest: "npm:^29.1.0"
     ts-node: "npm:^10.9.1"
+  languageName: unknown
+  linkType: soft
+
+"@abstractest/expect@workspace:packages/expect":
+  version: 0.0.0-use.local
+  resolution: "@abstractest/expect@workspace:packages/expect"
+  dependencies:
+    "@abstractest/infra": "workspace:*"
+    "@jest/expect": "npm:^29.5.0"
   languageName: unknown
   linkType: soft
 

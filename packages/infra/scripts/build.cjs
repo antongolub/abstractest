@@ -20,7 +20,7 @@ const esmConfig = {
   sourcemap: true,
   sourcesContent: false,
   platform: 'node',
-  target: 'ES2020',
+  target: 'esnext',
   format: 'esm',
   outExtension: {
     '.js': '.mjs'

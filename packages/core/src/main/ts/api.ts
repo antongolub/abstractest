@@ -1,8 +1,8 @@
 import {pathToFileURL} from 'node:url'
-import {Describe, Runner, SuiteFn, Test, TestFn, Expect} from '../interface'
-import {r} from '../util'
-import {nativeRunner} from './native'
-import {jestRunner} from './jest'
+import {Describe, Runner, SuiteFn, Test, TestFn, Expect} from './interface'
+import {r} from './util'
+// import {nativeRunner} from './native'
+// import {jestRunner} from './jest'
 
 const voidRunner: Runner = {
   name: 'void',
@@ -36,13 +36,18 @@ export const describe: Describe = (name: string, fn: SuiteFn) =>
 export const expect: Expect = (value) =>
   getRunner().api.expect(value)
 
-export const getRunner = (runnerName = process.env.ABSTRACTEST_RUNNER || 'native'): Runner => {
-  process.env.ABSTRACTEST_RUNNER = runnerName
-  return runnerName === 'jest' ? jestRunner : nativeRunner
-}
+export const getRunner = (name = process.env.ABSTRACTEST_RUNNER || 'void', nothrow = false): Runner => {
+  if (!runners.has(name) && !nothrow) {
+    throw new Error(`test runner ${name} is not loaded`)
+  }
 
-export const run = async (_opts: any = {}) => {
-  const {runner, include, cwd} = normalizeOpts(_opts)
+  return runners.get(name) as Runner
+}
+export const run = async (_opts: any) => {
+  const {runner: runnerName, include, cwd} = normalizeOpts(_opts)
+  const runner = getRunner(runnerName, true) || await loadRunner(runnerName)
+
+  process.env.ABSTRACTEST_RUNNER = runner.name
   await runner.run({include, cwd})
 }
 
@@ -58,8 +63,8 @@ export const loadRunner = async (name: string) => {
   return runner
 }
 
-const normalizeOpts = (opts: any = {}): {runner: Runner, include: string[], cwd: string} => {
-  const runner = getRunner(opts.runner)
+const normalizeOpts = (opts: any = {}): {runner: string, include: string[], cwd: string} => {
+  const runner = opts.runner || 'void'
   const include = opts.include || ['src/test/**/*.js']
   const cwd = opts.cwd || process.cwd()
 
@@ -68,4 +73,8 @@ const normalizeOpts = (opts: any = {}): {runner: Runner, include: string[], cwd:
     include,
     cwd,
   }
+}
+
+if (process.env.ABSTRACTEST_RUNNER) {
+  await loadRunner(process.env.ABSTRACTEST_RUNNER)
 }

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src/main/ts/",
+    "baseUrl": "./src/main/ts/",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "esnext",
+    "allowJs": true
+  },
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+  },
+  "include": [
+    "src/main/ts/"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

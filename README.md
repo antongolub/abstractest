@@ -18,7 +18,7 @@ describe('foo()', () => {
   })
 })
 ```
-Call the test runner:
+Run tests via the required runner:
 ```shell
 npx abstractest --runner=jest src/test/js/**/*.test.js
 ```

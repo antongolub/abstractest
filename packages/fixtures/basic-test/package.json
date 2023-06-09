@@ -1,0 +1,17 @@
+{
+  "name": "@abstractest/fixture-basic-test",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "exit 0",
+    "test": "concurrently 'npm:test:*'",
+    "test:native": "abstractest --runner=native src/test/ts/**/*",
+    "test:jest": "abstractest --runner=jest src/test/ts/**/*"
+  },
+  "devDependencies": {
+    "@abstractest/infra": "workspace:*",
+    "@abstractest/jest": "workspace:*",
+    "@abstractest/native": "workspace:*",
+    "abstractest": "workspace:*"
+  }
+}

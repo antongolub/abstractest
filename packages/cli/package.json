@@ -3,13 +3,20 @@
   "version": "0.0.0",
   "description": "CLI for abstractest",
   "type": "module",
-  "main": "target/cjs/index.cjs",
+  "main": "./target/cjs/index.cjs",
+  "bin": "./target/esm/cli.mjs",
   "exports": {
     ".": {
       "types": "./target/dts/index.d.ts",
       "require": "./target/cjs/index.cjs",
       "import": "./target/esm/index.mjs",
       "default": "./target/esm/index.mjs"
+    },
+    "./cli": {
+      "types": "./target/dts/cli.d.ts",
+      "require": "./target/cjs/cli.cjs",
+      "import": "./target/esm/cli.mjs",
+      "default": "./target/esm/cli.mjs"
     },
     "./package.json": "./package.json"
   },
@@ -21,7 +28,7 @@
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",
-    "@types/node": "^20.1.4"
+    "@types/node": "^20.2.5"
   },
   "files": [
     "target/cjs",
@@ -30,8 +37,8 @@
   ],
   "scripts": {
     "build": "concurrently 'npm:build:*'",
-    "build:esm": "node ../infra/scripts/build.cjs",
-    "build:cjs": "node ../infra/scripts/build.cjs --cjs",
+    "build:esm": "node ../infra/scripts/build.cjs --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts'",
+    "build:cjs": "node ../infra/scripts/build.cjs --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts' --cjs",
     "build:dts": "tsc --emitDeclarationOnly --skipLibCheck --outDir target/dts",
     "build:docs": "typedoc --options src/main/typedoc",
     "test": "concurrently 'npm:test:*'",

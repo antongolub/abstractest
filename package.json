@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/fixtures/*",
+    "!packages/fixtures"
   ],
   "description": "Abstractest monorepo",
   "scripts": {

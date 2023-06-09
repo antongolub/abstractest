@@ -28,7 +28,7 @@ const esmConfig = {
   },
   external: bundle ? (external ? external.split(',') : ['node:*']) : undefined,  // https://github.com/evanw/esbuild/issues/1466
   plugins: [nodeExternalsPlugin()],           // https://github.com/evanw/esbuild/issues/619
-  tsconfig: './tsconfig.json'
+  tsconfig: './tsconfig.json',
 }
 
 const cjsConfig = {

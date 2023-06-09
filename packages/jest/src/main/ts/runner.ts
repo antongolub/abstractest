@@ -28,11 +28,16 @@ export const runner: Runner = ({
     }
   },
   async run({cwd, include}) {
+    const tmp = '' + await fs.mkdir(path.resolve(await fs.realpath(os.tmpdir()), Math.random().toString(36).slice(2)), {recursive: true})
+    const abstractestPath = r.resolve('abstractest')
     const jestBinPath = path.resolve(r.resolve('jest'), '../../bin/jest.js')
-    // const jestSetupPath = path.resolve(await fs.realpath(os.tmpdir()), `jest-setup-${Math.random().toString(36).slice(2)}.mjs`)
-    const jestConfigPath = path.resolve(await fs.realpath(os.tmpdir()), `jest-config-${Math.random().toString(36).slice(2)}.json`)
+    const jestSetupPath = path.resolve(tmp, `jest-setup.mjs`)
+    const jestConfigPath = path.resolve(tmp, `jest-config.json`)
     await fs.writeFile(jestConfigPath, JSON.stringify({
-      // setupFiles: [jestSetupPath],
+      moduleNameMapper: {
+        '^abstractest$': abstractestPath
+      },
+      setupFilesAfterEnv: [jestSetupPath],
       rootDir: cwd,
       preset: 'ts-jest',
       transform: {
@@ -57,7 +62,7 @@ export const runner: Runner = ({
       testTimeout: 2000,
     }))
 
-    // await fs.writeFile(jestSetupPath,`import {loadRunner} from 'abstractest'; await loadRunner(process.env.ABSTRACTEST_RUNNER)`, 'utf8')
+    await fs.writeFile(jestSetupPath,`process.env.ABSTRACTEST_RUNNER && await (await import('${abstractestPath}')).loadRunner(process.env.ABSTRACTEST_RUNNER)`, 'utf8')
 
     // const options = {
     //   projects: [
@@ -86,6 +91,7 @@ export const runner: Runner = ({
       })
     } finally {
       await fs.unlink(jestConfigPath)
+      await fs.unlink(jestSetupPath)
     }
   }
 })

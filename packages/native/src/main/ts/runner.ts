@@ -18,7 +18,7 @@ export const runner: Runner = {
   async run({cwd, include}) {
     const suites: string[] = (await glob(include, {cwd, absolute: true, onlyFiles: true})).map(suite => pathToFileURL(suite).toString())
     const loader = r.resolve('ts-node/esm')
-    const script = `await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
+    const script = `process.env.ABSTRACTEST_RUNNER && await (await import('abstractest')).loadRunner(process.env.ABSTRACTEST_RUNNER); await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
 
     await api.spawn('c8', [
       '-r=lcov',

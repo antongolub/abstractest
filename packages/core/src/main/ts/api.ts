@@ -72,7 +72,3 @@ const normalizeOpts = (opts: any = {}): {runner: string, include: string[], cwd:
     cwd,
   }
 }
-
-if (process.env.ABSTRACTEST_RUNNER) {
-  await loadRunner(process.env.ABSTRACTEST_RUNNER)
-}

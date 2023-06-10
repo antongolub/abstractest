@@ -1,7 +1,7 @@
 {
   "name": "@abstractest/core",
   "version": "0.0.0",
-  "description": "Abstract testing processor",
+  "description": "abstractest core utils",
   "type": "module",
   "main": "./target/cjs/index.cjs",
   "exports": {

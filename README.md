@@ -1,4 +1,6 @@
 # abstractest
+[![CI](https://github.com/antongolub/abstractest/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/antongolub/abstractest/actions/workflows/ci.yaml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5aae4759bc5da3c06ae0/maintainability)](https://codeclimate.com/github/antongolub/abstractest/maintainability)
 > Abstract testing processor
 
 ## Hypothesis
@@ -22,6 +24,17 @@ Run tests via the required runner:
 ```shell
 npx abstractest --runner=jest src/test/js/**/*.test.js
 ```
+
+## Contents
+| Package | Description | Latest |
+|---------|-------------|--------|
+| [@abstractest/core](./packages/core) | abstractest core utils | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/core)](https://www.npmjs.com/package/@abstractest/core) |
+| [@abstractest/expect](./packages/expect) | Assertion library for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/expect)](https://www.npmjs.com/package/@abstractest/expect) |
+| [@abstractest/fixture-basic-test](./packages/fixtures/basic-test) | Testing fixtures |  |
+| [@abstractest/infra](./packages/infra) | abstractest monorepo infra assets |  |
+| [@abstractest/jest](./packages/jest) | Jest runner for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/jest)](https://www.npmjs.com/package/@abstractest/jest) |
+| [@abstractest/native](./packages/native) | Native node:test runner for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/native)](https://www.npmjs.com/package/@abstractest/native) |
+| [abstractest](./packages/cli) | CLI for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/abstractest)](https://www.npmjs.com/package/abstractest) |
 
 ## License
 [MIT](./LICENSE)

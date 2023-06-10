@@ -1,5 +1,6 @@
 {
   "name": "@abstractest/fixture-basic-test",
+  "description": "Testing fixtures",
   "type": "module",
   "private": true,
   "scripts": {

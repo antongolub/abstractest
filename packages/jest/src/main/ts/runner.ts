@@ -1,41 +1,12 @@
 import path from 'node:path'
 import fs from 'node:fs/promises'
 import os from 'node:os'
-import {Runner, spawn, r} from '@abstractest/core'
-
-export const api: {
-  spawn: typeof spawn
-  [name: string]: any
-} = {
-  ...globalThis,
-  spawn
-}
+import {Runner, r} from '@abstractest/core'
+import {api, _api} from './adapter'
 
 export const runner: Runner = ({
   name: 'jest',
-  api: {
-    it(name, fn) {
-      return api?.it(name, fn)
-    },
-    describe(name, fn) {
-      return api?.describe(name, fn)
-    },
-    expect(value) {
-      return api?.expect(value)
-    },
-    before(value) {
-      return api?.beforeAll(value)
-    },
-    beforeEach(value) {
-      return api?.beforeEach(value)
-    },
-    after(value) {
-      return api?.afterAll(value)
-    },
-    afterEach(value) {
-      return api?.afterEach(value)
-    }
-  },
+  api,
   async run({cwd, include}) {
     const {
       jestBinPath,
@@ -44,7 +15,7 @@ export const runner: Runner = ({
     } = await touchJest(cwd, include)
 
     try {
-      await api.spawn('node', [
+      await _api.spawn('node', [
         '--experimental-specifier-resolution=node',
         '--experimental-vm-modules',
         jestBinPath,

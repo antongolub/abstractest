@@ -22,6 +22,18 @@ export const runner: Runner = ({
     },
     expect(value) {
       return api?.expect(value)
+    },
+    before(value) {
+      return api?.beforeAll(value)
+    },
+    beforeEach(value) {
+      return api?.beforeEach(value)
+    },
+    after(value) {
+      return api?.afterAll(value)
+    },
+    afterEach(value) {
+      return api?.afterEach(value)
     }
   },
   async run({cwd, include}) {

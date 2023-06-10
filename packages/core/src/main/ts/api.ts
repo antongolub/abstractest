@@ -1,5 +1,5 @@
 import {pathToFileURL} from 'node:url'
-import {Describe, Runner, SuiteFn, Test, TestFn, Expect} from './interface'
+import {Describe, Runner, SuiteFn, Test, TestFn, Expect, Hook} from './interface'
 import {r} from './util'
 
 const voidRunner: Runner = {
@@ -11,7 +11,11 @@ const voidRunner: Runner = {
       return {
         toEqual(expected: any) {/* noop */}
       }
-    }
+    },
+    before() {/* noop */},
+    beforeEach() {/* noop */},
+    after() {/* noop */},
+    afterEach() {/* noop */},
   },
   async run() {/* noop */}
 }
@@ -33,6 +37,18 @@ export const describe: Describe = (name: string, fn: SuiteFn) =>
 
 export const expect: Expect = (value) =>
   getRunner().api.expect(value)
+
+export const before: Hook = (fn) =>
+  getRunner().api.before(fn)
+
+export const beforeEach: Hook = (fn) =>
+  getRunner().api.beforeEach(fn)
+
+export const after: Hook = (fn) =>
+  getRunner().api.after(fn)
+
+export const afterEach: Hook = (fn) =>
+  getRunner().api.afterEach(fn)
 
 export const getRunner = (name = process.env.ABSTRACTEST_RUNNER || 'void', nothrow = false): Runner => {
   if (!runners.has(name) && !nothrow) {

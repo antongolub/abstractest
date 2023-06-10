@@ -1,5 +1,5 @@
 import path from 'node:path'
-import {describe, it} from 'node:test'
+import {describe, it, after, afterEach, before, beforeEach} from 'node:test'
 import {pathToFileURL} from 'node:url'
 import {Runner, spawn, r} from '@abstractest/core'
 import {expect} from '@abstractest/expect'
@@ -8,7 +8,11 @@ import glob from 'fast-glob'
 export const api = {
   spawn,
   it,
-  describe
+  describe,
+  after,
+  afterEach,
+  before,
+  beforeEach
 }
 
 export const runner: Runner = {
@@ -37,19 +41,21 @@ export const runner: Runner = {
     })
   },
   api: {
+    expect,
     it(name, fn) {
       return api.it(name, (_ctx, done) => {
         let cb = done
-        const result = fn(() => { cb = () => {/* noop */}; done() })
+        const result = fn((result) => { cb = () => {/* noop */}; done(result) })
 
-        return typeof result?.then == 'function'
-          ? result.then(cb)
+        typeof result?.then == 'function'
+          ? result.then(() => cb()).catch(cb)
           : cb()
       })
     },
-    describe(name, fn) {
-      return api.describe(name, fn)
-    },
-    expect,
+    describe(name, fn) { return api.describe(name, fn)},
+    before(fn) { return api.before(fn) },
+    beforeEach(fn) { return api.beforeEach(fn) },
+    after(fn) { return api.after(fn) },
+    afterEach(fn) { return api.afterEach(fn) },
   }
 }

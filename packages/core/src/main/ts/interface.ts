@@ -4,11 +4,23 @@ export type Done = (result?: any) => void
 
 export type TestFn = (done: Done) => void | Promise<void>
 
+export type Test = (name: string, fn?: TestFn) => void
+
+export type It = Test & {
+  only: Test
+  skip: Test
+  todo: Test
+}
+
 export type SuiteFn = (done: Done) => void
 
-export type Test = (name: string, fn: TestFn) => void
+export type DescribeSuite = (name: string, fn?: SuiteFn) => void
 
-export type Describe = (name: string, fn: SuiteFn) => void
+export type Describe = DescribeSuite & {
+  only: DescribeSuite
+  skip: DescribeSuite
+  todo: DescribeSuite
+}
 
 export type HookFn = (done: Done) => any
 
@@ -16,7 +28,7 @@ export type Hook = (fn: HookFn) => void | Promise<void>
 
 export type TestApi = {
   describe: Describe
-  it: Test
+  it: It,
   expect: Expect
   before: Hook
   beforeEach: Hook
@@ -35,5 +47,3 @@ export type Runner = {
 export type Expect = (val: any) => {
   toEqual(val: any): void
 }
-
-

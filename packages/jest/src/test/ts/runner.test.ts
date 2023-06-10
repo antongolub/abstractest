@@ -1,14 +1,15 @@
 import * as assert from 'node:assert'
 import { describe, it, after } from 'node:test'
-import { runner, api } from '../../main/ts/runner'
+import { runner } from '../../main/ts/runner'
+import { _api } from '../../main/ts/adapter'
 import { temporaryDirectory } from 'tempy'
 
-const _api = {...api}
+const __api = {..._api}
 
 describe('runner()', () => {
   it('`run()` invokes `spawn` with proper args', async () => {
     const cwd = temporaryDirectory()
-    api.spawn = (bin, args, opts) => {
+    _api.spawn = (bin, args, opts) => {
       assert.equal(bin, 'node')
       assert.deepEqual(opts, {cwd, env: process.env})
       return Promise.resolve({stdout: '', stderr: ''})
@@ -21,7 +22,7 @@ describe('runner()', () => {
     it('`it()` passes args to `jest.it`', async () => {
       const name = 'foo'
       const fn = () => {}
-      api.it = (_name, _fn) => {
+      _api.it = (_name, _fn) => {
         assert.equal(_name, name)
         assert.equal(_fn, fn)
       }
@@ -31,7 +32,7 @@ describe('runner()', () => {
     it('`describe()` passes args to `jest.describe`', async () => {
       const name = 'foo'
       const fn = () => {}
-      api.describe = (_name, _fn) => {
+      _api.describe = (_name, _fn) => {
         assert.equal(_name, name)
         assert.equal(_fn, fn)
       }
@@ -40,12 +41,12 @@ describe('runner()', () => {
 
     it('`expect()` passes args to `jest.expect`', async () => {
       const a = 'foo'
-      api.expect = (_a) => {
+      _api.expect = (_a) => {
         assert.equal(_a, a)
       }
       await runner.api.expect(a)
     })
   })
 
-  after(() => Object.assign(api, _api))
+  after(() => Object.assign(_api, __api))
 })

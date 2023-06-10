@@ -19,5 +19,10 @@ describe('foo()', () => {
     expect(foo()).toEqual('bar')
     expect(count).toEqual(3)
   })
+
+  it.skip('skipped test', () => {})
+  it.todo('todo test')
 })
 
+describe.skip('skipped suite', () => {})
+describe.todo('todo suite')

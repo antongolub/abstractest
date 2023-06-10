@@ -1,19 +1,8 @@
 import path from 'node:path'
-import {describe, it, after, afterEach, before, beforeEach} from 'node:test'
 import {pathToFileURL} from 'node:url'
-import {Runner, spawn, r} from '@abstractest/core'
-import {expect} from '@abstractest/expect'
+import {Runner, r} from '@abstractest/core'
 import glob from 'fast-glob'
-
-export const api = {
-  spawn,
-  it,
-  describe,
-  after,
-  afterEach,
-  before,
-  beforeEach
-}
+import {api, _api} from './adapter'
 
 export const runner: Runner = {
   name: 'native',
@@ -23,7 +12,7 @@ export const runner: Runner = {
     const loader = r.resolve('ts-node/esm')
     const script = `process.env.ABSTRACTEST_RUNNER && await (await import('@abstractest/core')).loadRunner(process.env.ABSTRACTEST_RUNNER); await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
 
-    await api.spawn('node', [
+    await _api.spawn('node', [
       c8,
       '-r=lcov',
       '-r=text',
@@ -40,22 +29,5 @@ export const runner: Runner = {
       env: process.env
     })
   },
-  api: {
-    expect,
-    it(name, fn) {
-      return api.it(name, (_ctx, done) => {
-        let cb = done
-        const result = fn((result) => { cb = () => {/* noop */}; done(result) })
-
-        typeof result?.then == 'function'
-          ? result.then(() => cb()).catch(cb)
-          : cb()
-      })
-    },
-    describe(name, fn) { return api.describe(name, fn)},
-    before(fn) { return api.before(fn) },
-    beforeEach(fn) { return api.beforeEach(fn) },
-    after(fn) { return api.after(fn) },
-    afterEach(fn) { return api.afterEach(fn) },
-  }
+  api
 }

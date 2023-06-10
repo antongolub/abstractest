@@ -51,7 +51,7 @@
   "homepage": "https://github.com/antongolub/abstractest#readme",
   "devDependencies": {
     "@abstractest/infra": "workspace:*",
-    "@types/node": "^20.2.5",
+    "@types/node": "^20.2.6",
     "ts-node": "^10.9.1"
   }
 }

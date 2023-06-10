@@ -9,7 +9,7 @@ describe('runner()', () => {
   it('`run()` invokes `spawn` with proper args', async () => {
     const cwd = temporaryDirectory()
     api.spawn = (bin, args, opts) => {
-      assert.equal(bin, 'c8')
+      assert.equal(bin, 'node')
       assert.deepEqual(opts, {cwd, env: process.env})
       return Promise.resolve({stdout: '', stderr: ''})
     }

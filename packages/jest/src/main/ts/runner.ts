@@ -59,7 +59,7 @@ const touchJest = async (cwd: string, include: string[]) => {
 
   await fs.writeFile(jestConfigPath, JSON.stringify({
     moduleNameMapper: {
-      '^@abstractest\/core$': abstractestPath
+      '^@abstractest/core$': abstractestPath
     },
     setupFilesAfterEnv: [jestSetupPath],
     rootDir: cwd,

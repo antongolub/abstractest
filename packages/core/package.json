@@ -2,6 +2,9 @@
   "name": "@abstractest/core",
   "version": "0.0.0",
   "description": "abstractest core utils",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "./target/cjs/index.cjs",
   "exports": {

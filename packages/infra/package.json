@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "description": "abstractest monorepo infra assets",
+  "publishConfig": {
+    "access": "public"
+  },
   "directories": {
     "bin": "./node_modules/.bin"
   },

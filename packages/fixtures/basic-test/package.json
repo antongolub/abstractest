@@ -1,6 +1,9 @@
 {
   "name": "@abstractest/fixture-basic-test",
   "description": "Testing fixtures",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "private": true,
   "scripts": {

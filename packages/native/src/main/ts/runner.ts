@@ -1,11 +1,9 @@
-import {createRequire} from 'node:module'
+import path from 'node:path'
 import {describe, it} from 'node:test'
 import {pathToFileURL} from 'node:url'
-import {Runner, spawn} from '@abstractest/core'
+import {Runner, spawn, r} from '@abstractest/core'
 import {expect} from '@abstractest/expect'
 import glob from 'fast-glob'
-
-const r = import.meta.url ? createRequire(import.meta.url) : require
 
 export const api = {
   spawn,
@@ -17,10 +15,12 @@ export const runner: Runner = {
   name: 'native',
   async run({cwd, include}) {
     const suites: string[] = (await glob(include, {cwd, absolute: true, onlyFiles: true})).map(suite => pathToFileURL(suite).toString())
+    const c8 = path.resolve(r.resolve('c8'), '../bin/c8.js')
     const loader = r.resolve('ts-node/esm')
-    const script = `process.env.ABSTRACTEST_RUNNER && await (await import('abstractest')).loadRunner(process.env.ABSTRACTEST_RUNNER); await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
+    const script = `process.env.ABSTRACTEST_RUNNER && await (await import('@abstractest/core')).loadRunner(process.env.ABSTRACTEST_RUNNER); await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
 
-    await api.spawn('c8', [
+    await api.spawn('node', [
+      c8,
       '-r=lcov',
       '-r=text',
       '-o=target/coverage',

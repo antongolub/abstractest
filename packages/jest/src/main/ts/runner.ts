@@ -1,10 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs/promises'
-import {createRequire} from 'node:module'
 import os from 'node:os'
-import {Runner, spawn} from '@abstractest/core'
-
-const r = import.meta.url ? createRequire(import.meta.url) : require
+import {Runner, spawn, r} from '@abstractest/core'
 
 export const api: {
   spawn: typeof spawn
@@ -28,56 +25,12 @@ export const runner: Runner = ({
     }
   },
   async run({cwd, include}) {
-    const tmp = '' + await fs.mkdir(path.resolve(await fs.realpath(os.tmpdir()), Math.random().toString(36).slice(2)), {recursive: true})
-    const abstractestPath = r.resolve('abstractest')
-    const jestBinPath = path.resolve(r.resolve('jest'), '../../bin/jest.js')
-    const jestSetupPath = path.resolve(tmp, `jest-setup.mjs`)
-    const jestConfigPath = path.resolve(tmp, `jest-config.json`)
-    await fs.writeFile(jestConfigPath, JSON.stringify({
-      moduleNameMapper: {
-        '^abstractest$': abstractestPath
-      },
-      setupFilesAfterEnv: [jestSetupPath],
-      rootDir: cwd,
-      preset: 'ts-jest',
-      transform: {
-        '^.+\\.tsx?$': ['ts-jest', {useESM: true}]
-      },
-      moduleFileExtensions: [
-        'ts',
-        'tsx',
-        'js',
-        'jsx',
-        'json',
-        'node'
-      ],
-      extensionsToTreatAsEsm: ['.ts', '.tsx', '.mts'],
-      testEnvironment: 'node',
-      collectCoverage: true,
-      coverageDirectory: './target/coverage',
-      collectCoverageFrom: [
-        'src/main/**/*.ts'
-      ],
-      testMatch: include.map(item => `${cwd}/${item}`),
-      testTimeout: 2000,
-    }))
+    const {
+      jestBinPath,
+      jestSetupPath,
+      jestConfigPath
+    } = await touchJest(cwd, include)
 
-    await fs.writeFile(jestSetupPath,`process.env.ABSTRACTEST_RUNNER && await (await import('${abstractestPath}')).loadRunner(process.env.ABSTRACTEST_RUNNER)`, 'utf8')
-
-    // const options = {
-    //   projects: [
-    //     jestConfigPath,
-    //   ],
-    // }
-    // const jest = (await import('jest')).default
-    // return jest
-    //   .runCLI(options, options.projects)
-    //   .then((success: any) => {
-    //     console.log('success=', success);
-    //   })
-    //   .catch((failure: any) => {
-    //     console.error('failure=', failure);
-    //   })
     try {
       await api.spawn('node', [
         '--experimental-specifier-resolution=node',
@@ -95,3 +48,49 @@ export const runner: Runner = ({
     }
   }
 })
+
+const touchJest = async (cwd: string, include: string[]) => {
+  const tmp = await fs.mkdir(path.resolve(await fs.realpath(os.tmpdir()), Math.random().toString(36).slice(2)), {recursive: true}) + ''
+  const abstractestPath = r.resolve('@abstractest/core')
+  const jestBinPath = path.resolve(r.resolve('jest'), '../../bin/jest.js')
+  const jestSetupPath = path.resolve(tmp, `jest-setup.mjs`)
+  const jestConfigPath = path.resolve(tmp, `jest-config.json`)
+  const script = `process.env.ABSTRACTEST_RUNNER && await (await import('${abstractestPath}')).loadRunner(process.env.ABSTRACTEST_RUNNER)`
+
+  await fs.writeFile(jestConfigPath, JSON.stringify({
+    moduleNameMapper: {
+      '^@abstractest\/core$': abstractestPath
+    },
+    setupFilesAfterEnv: [jestSetupPath],
+    rootDir: cwd,
+    preset: 'ts-jest',
+    transform: {
+      '^.+\\.tsx?$': ['ts-jest', {useESM: true}]
+    },
+    moduleFileExtensions: [
+      'ts',
+      'tsx',
+      'js',
+      'jsx',
+      'json',
+      'node'
+    ],
+    extensionsToTreatAsEsm: ['.ts', '.tsx', '.mts'],
+    testEnvironment: 'node',
+    collectCoverage: true,
+    coverageDirectory: './target/coverage',
+    collectCoverageFrom: [
+      'src/main/**/*.ts'
+    ],
+    testMatch: include.map(item => `${cwd}/${item}`),
+    testTimeout: 2000,
+  }))
+
+  await fs.writeFile(jestSetupPath, script, 'utf8')
+
+  return {
+    jestBinPath,
+    jestSetupPath,
+    jestConfigPath,
+  }
+}

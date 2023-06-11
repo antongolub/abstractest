@@ -49,6 +49,9 @@
     "astract"
   ],
   "homepage": "https://github.com/antongolub/abstractest#readme",
+  "dependencies": {
+    "@abstractest/types": "workspace:*"
+  },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",
     "@types/node": "^20.2.6",

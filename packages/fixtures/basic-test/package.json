@@ -9,13 +9,14 @@
   "scripts": {
     "build": "exit 0",
     "test": "concurrently 'npm:test:*'",
-    "test:native": "abstractest --runner=native src/test/ts/**/*",
-    "test:jest": "abstractest --runner=jest src/test/ts/**/*"
+    "test:native": "abstractest --runner=native --inject-globals 'src/test/ts/**/*'",
+    "test:jest": "abstractest --runner=jest --inject-globals 'src/test/ts/**/*'"
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",
     "@abstractest/jest": "workspace:*",
     "@abstractest/native": "workspace:*",
+    "@abstractest/types": "workspace:*",
     "abstractest": "workspace:*"
   }
 }

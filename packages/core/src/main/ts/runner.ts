@@ -45,10 +45,15 @@ export const getRunner = (name = process.env.ABSTRACTEST_RUNNER || 'void', nothr
 }
 
 export const run = async (_opts: any) => {
-  const {runner: runnerName, include, cwd} = normalizeOpts(_opts)
+  const {runner: runnerName, include, cwd, injectGlobal} = normalizeOpts(_opts)
   const runner = getRunner(runnerName, true) || await loadRunner(runnerName)
 
   process.env.ABSTRACTEST_RUNNER = runner.name
+
+  if (injectGlobal) {
+    process.env.ABSTRACTEST_INJECT_GLOBAL = 'true'
+  }
+
   await runner.run({include, cwd})
 }
 
@@ -64,14 +69,16 @@ export const loadRunner = async (name: string) => {
   return runner
 }
 
-const normalizeOpts = (opts: any = {}): {runner: string, include: string[], cwd: string} => {
+const normalizeOpts = (opts: any = {}): {runner: string, include: string[], cwd: string, injectGlobal: boolean} => {
   const runner = opts.runner || 'void'
   const include = opts.include || ['src/test/**/*.js']
   const cwd = opts.cwd || process.cwd()
+  const injectGlobal = opts.injectGlobal || false
 
   return {
     runner,
     include,
+    injectGlobal,
     cwd,
   }
 }

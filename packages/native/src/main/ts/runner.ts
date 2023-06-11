@@ -10,7 +10,8 @@ export const runner: Runner = {
     const suites: string[] = (await glob(include, {cwd, absolute: true, onlyFiles: true})).map(suite => pathToFileURL(suite).toString())
     const c8 = path.resolve(r.resolve('c8'), '../bin/c8.js')
     const loader = r.resolve('ts-node/esm')
-    const script = `process.env.ABSTRACTEST_RUNNER && await (await import('@abstractest/core')).loadRunner(process.env.ABSTRACTEST_RUNNER); await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
+    const core = r.resolve('@abstractest/core')
+    const script = `import {init} from '${core}'; await init(); await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
 
     await _api.spawn('node', [
       c8,

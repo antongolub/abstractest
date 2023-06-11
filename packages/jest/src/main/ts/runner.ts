@@ -39,7 +39,7 @@ const touchJest = async (cwd: string, include: string[]) => {
   const jestSetupPath = path.resolve(tmp, `jest-setup.mjs`)
   const jestConfigPath = path.resolve(tmp, `jest-config.json`)
   const tsJestPath = path.resolve(r.resolve('ts-jest'), '../..')
-  const script = `process.env.ABSTRACTEST_RUNNER && await (await import('${abstractestPath}')).loadRunner(process.env.ABSTRACTEST_RUNNER)`
+  const script = `import {init} from '${abstractestPath}'; await init()`
 
   await fs.writeFile(jestConfigPath, JSON.stringify({
     moduleNameMapper: {

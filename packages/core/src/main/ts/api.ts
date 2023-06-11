@@ -1,5 +1,5 @@
 import {Describe, SuiteFn, It, TestFn, Expect, Hook} from './interface'
-import {getRunner} from './runner'
+import {getRunner, loadRunner} from './runner'
 
 export const it: It = Object.assign((name: string, fn?: TestFn) => getRunner().api.it(name, fn), {
   only(name: string, fn?: TestFn) { return getRunner().api.it.only(name, fn) },
@@ -22,3 +22,26 @@ export const beforeEach: Hook = (fn) => getRunner().api.beforeEach(fn)
 export const after: Hook = (fn) =>      getRunner().api.after(fn)
 
 export const afterEach: Hook = (fn) =>  getRunner().api.afterEach(fn)
+
+export const init = async () => {
+  const {
+    ABSTRACTEST_RUNNER: runner,
+    ABSTRACTEST_INJECT_GLOBAL: injectGlobals = false
+  } = process.env
+
+  if (runner) {
+    await loadRunner(runner)
+  }
+
+  if (injectGlobals) {
+    Object.assign(globalThis, {
+      it,
+      describe,
+      expect,
+      before,
+      beforeEach,
+      after,
+      afterEach
+    })
+  }
+}

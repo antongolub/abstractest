@@ -4,12 +4,17 @@ import {run} from '@abstractest/core'
 import minimist from 'minimist'
 import {createRequire} from 'node:module'
 
-const {_, cwd, runner, help, version} = minimist(process.argv.slice(2), {
+const camelize = (s: string) => s.replace(/-./g, x => x[1].toUpperCase())
+const normalizeFlags = (flags = {}): Record<string, any> => Object.entries(flags).reduce((acc, [k, v]) => ({...acc, [camelize(k)]: v}), {})
+
+const {_, cwd, runner, help, version, injectGlobal} = normalizeFlags(minimist(process.argv.slice(2), {
   alias: {
     help: ['h'],
-    version: ['v']
+    version: ['v'],
+    'inject-global': ['inject-globals']
   },
-});
+  boolean: ['inject-global']
+}));
 
 (() => {
 
@@ -38,6 +43,7 @@ run({
   cwd,
   include: _,
   runner,
+  injectGlobal,
 })
 
 })()

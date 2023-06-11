@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          # cache: 'yarn'
+          cache: 'yarn'
 
       - name: Fetch deps
         run: yarn --silent --immutable
@@ -62,7 +62,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-22.04 ]
-        node-version: [ 18, 20 ]
+        node-version: [ 20 ]
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -75,7 +75,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          # cache: 'yarn'
+          cache: 'yarn'
 
       - name: Fetch deps
         run: yarn --silent --immutable

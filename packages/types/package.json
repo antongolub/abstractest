@@ -32,7 +32,7 @@
     "src/main/js"
   ],
   "scripts": {
-    "build": "concurrently 'npm:build:*'",
+    "build": "concurrently --kill-others-on-fail 'npm:build:*'",
     "build:docs": "typedoc --options src/main/typedoc",
     "test": "exit 0"
   },

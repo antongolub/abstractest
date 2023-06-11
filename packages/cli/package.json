@@ -39,12 +39,12 @@
     "target/dts"
   ],
   "scripts": {
-    "build": "concurrently 'npm:build:*'",
+    "build": "concurrently --kill-others-on-fail 'npm:build:*'",
     "build:esm": "node ../infra/scripts/build.mjs --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts'",
     "build:cjs": "node ../infra/scripts/build.mjs --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts' --cjs",
     "build:dts": "tsc --emitDeclarationOnly --skipLibCheck --outDir target/dts",
     "build:docs": "typedoc --options src/main/typedoc",
-    "test": "concurrently 'npm:test:*'",
+    "test": "concurrently --kill-others-on-fail 'npm:test:*'",
     "test:lint": "eslint -c src/test/lint/.eslintrc.json src",
     "test:unit": "c8 -r lcov -r text -o target/coverage -x src/test node --loader ts-node/esm --experimental-specifier-resolution=node ../infra/scripts/test.mjs"
   },

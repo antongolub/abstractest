@@ -10,6 +10,7 @@ __metadata:
   resolution: "@abstractest/core@workspace:packages/core"
   dependencies:
     "@abstractest/infra": "workspace:*"
+    "@abstractest/types": "workspace:*"
     "@types/node": "npm:^20.2.6"
     ts-node: "npm:^10.9.1"
   languageName: unknown
@@ -31,6 +32,7 @@ __metadata:
     "@abstractest/infra": "workspace:*"
     "@abstractest/jest": "workspace:*"
     "@abstractest/native": "workspace:*"
+    "@abstractest/types": "workspace:*"
     abstractest: "workspace:*"
   languageName: unknown
   linkType: soft
@@ -85,6 +87,15 @@ __metadata:
     c8: "npm:^7.14.0"
     fast-glob: "npm:^3.2.12"
     ts-node: "npm:^10.9.1"
+  languageName: unknown
+  linkType: soft
+
+"@abstractest/types@workspace:*, @abstractest/types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "@abstractest/types@workspace:packages/types"
+  dependencies:
+    "@abstractest/infra": "workspace:*"
+    "@types/node": "npm:^20.2.6"
   languageName: unknown
   linkType: soft
 

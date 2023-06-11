@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const esbuild = require('esbuild')
-const { nodeExternalsPlugin } = require('esbuild-node-externals')
-const minimist = require("minimist")
-const glob = require('fast-glob')
+import esbuild from 'esbuild'
+import {nodeExternalsPlugin} from 'esbuild-node-externals'
+import minimist from 'minimist'
+import glob from 'fast-glob'
 
 const {entry, external} = minimist(process.argv.slice(2), {
   default: {
@@ -45,6 +45,6 @@ const config = argv.includes('--cjs')
   ? cjsConfig
   : esmConfig
 
-esbuild
+await esbuild
   .build(config)
   .catch(() => process.exit(1))

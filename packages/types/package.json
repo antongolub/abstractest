@@ -1,0 +1,48 @@
+{
+  "name": "@abstractest/types",
+  "version": "0.0.0",
+  "description": "abstractest types",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "main": "./src/js/index.cjs",
+  "exports": {
+    ".": {
+      "types": "./src/dts/index.d.ts",
+      "require": "./src/js/index.cjs",
+      "import": "./src/js/index.mjs",
+      "default": "./src/js/index.mjs"
+    },
+    "./global": {
+      "types": "./src/dts/global.d.ts",
+      "require": "./src/js/global.cjs",
+      "import": "./src/js/global.mjs",
+      "default": "./src/js/global.mjs"
+    }
+  },
+  "module": "./src/js/index.mjs",
+  "types": "./src/dts/index.d.ts",
+  "devDependencies": {
+    "@abstractest/infra": "workspace:*",
+    "@types/node": "^20.2.6"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "build": "concurrently 'npm:build:*'",
+    "build:docs": "typedoc --options src/main/typedoc",
+    "test": "exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antongolub/abstractest.git"
+  },
+  "author": "Anton Golub <antongolub@antongolub.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antongolub/abstractest/issues"
+  },
+  "homepage": "https://github.com/antongolub/abstractest#readme"
+}

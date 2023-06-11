@@ -5,7 +5,7 @@ import minimist from 'minimist'
 import {createRequire} from 'node:module'
 
 const camelize = (s: string) => s.replace(/-./g, x => x[1].toUpperCase())
-const normalizeFlags = (flags = {}): Record<string, any> => Object.entries(flags).reduce((acc, [k, v]) => ({...acc, [camelize(k)]: v}), {})
+const normalizeFlags = (flags = {}): Record<string, any> => Object.fromEntries(Object.entries(flags).map(( [k, v]) => [camelize(k), v]))
 
 const {_, cwd, runner, help, version, injectGlobal} = normalizeFlags(minimist(process.argv.slice(2), {
   alias: {

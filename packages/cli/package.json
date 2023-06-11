@@ -40,8 +40,8 @@
   ],
   "scripts": {
     "build": "concurrently 'npm:build:*'",
-    "build:esm": "node ../infra/scripts/build.cjs --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts'",
-    "build:cjs": "node ../infra/scripts/build.cjs --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts' --cjs",
+    "build:esm": "node ../infra/scripts/build.mjs --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts'",
+    "build:cjs": "node ../infra/scripts/build.mjs --entry='./src/main/ts/index.ts:./src/main/ts/cli.ts' --cjs",
     "build:dts": "tsc --emitDeclarationOnly --skipLibCheck --outDir target/dts",
     "build:docs": "typedoc --options src/main/typedoc",
     "test": "concurrently 'npm:test:*'",

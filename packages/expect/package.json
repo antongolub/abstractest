@@ -30,8 +30,8 @@
   },
   "scripts": {
     "build": "concurrently 'npm:build:*'",
-    "build:esm": "node ../infra/scripts/build.cjs",
-    "build:cjs": "node ../infra/scripts/build.cjs --cjs",
+    "build:esm": "node ../infra/scripts/build.mjs",
+    "build:cjs": "node ../infra/scripts/build.mjs --cjs",
     "build:dts": "tsc --emitDeclarationOnly --skipLibCheck --outDir target/dts",
     "build:docs": "typedoc --options src/main/typedoc",
     "test": "concurrently 'npm:test:*'",

@@ -38,6 +38,7 @@ const touchJest = async (cwd: string, include: string[]) => {
   const jestBinPath = path.resolve(r.resolve('jest'), '../../bin/jest.js')
   const jestSetupPath = path.resolve(tmp, `jest-setup.mjs`)
   const jestConfigPath = path.resolve(tmp, `jest-config.json`)
+  const tsJestPath = path.resolve(r.resolve('ts-jest'), '../..')
   const script = `process.env.ABSTRACTEST_RUNNER && await (await import('${abstractestPath}')).loadRunner(process.env.ABSTRACTEST_RUNNER)`
 
   await fs.writeFile(jestConfigPath, JSON.stringify({
@@ -46,7 +47,7 @@ const touchJest = async (cwd: string, include: string[]) => {
     },
     setupFilesAfterEnv: [jestSetupPath],
     rootDir: cwd,
-    preset: 'ts-jest',
+    preset: tsJestPath,
     transform: {
       '^.+\\.tsx?$': ['ts-jest', {useESM: true}]
     },

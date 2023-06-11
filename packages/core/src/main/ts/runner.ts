@@ -1,6 +1,7 @@
 import {pathToFileURL} from 'node:url'
 import {Runner} from './interface'
 import {r} from './util'
+import {context} from './context'
 
 const voidRunner: Runner = {
   name: 'void',
@@ -28,21 +29,19 @@ const voidRunner: Runner = {
   async run() {/* noop */}
 }
 
+context.runners.set('void', voidRunner)
+
 const stdRunners = new Map([
   ['jest', '@abstractest/jest'],
   ['native', '@abstractest/native'],
 ])
 
-const runners = new Map<string, Runner>([
-  ['void', voidRunner]
-])
-
 export const getRunner = (name = process.env.ABSTRACTEST_RUNNER || 'void', nothrow = false): Runner => {
-  if (!runners.has(name) && !nothrow) {
+  if (!context.runners.has(name) && !nothrow) {
     throw new Error(`test runner ${name} is not loaded`)
   }
 
-  return runners.get(name) as Runner
+  return context.runners.get(name) as Runner
 }
 
 export const run = async (_opts: any) => {
@@ -60,7 +59,7 @@ export const loadRunner = async (name: string) => {
   const m = (await import(dest))
   const runner: Runner = m?.runner || m?.default?.runner || m?.default || m
 
-  runners.set(runner.name, runner)
+  context.runners.set(runner.name, runner)
 
   return runner
 }

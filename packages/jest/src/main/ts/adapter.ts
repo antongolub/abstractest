@@ -1,10 +1,10 @@
-import { spawn, SuiteFn, TestApi } from '@abstractest/core'
+import { spawn, SuiteFn, TestApi, context } from '@abstractest/core'
 
 export const _api: {
   spawn: typeof spawn
   [name: string]: any
 } = {
-  ...globalThis,
+  ...context.data.global,
   spawn
 }
 

@@ -8,6 +8,11 @@ Find out if it's possible to declare unit tests in some _generic_ notation,
 and execute them via any _appropriate_ provider.
 
 ## Usage
+Install:
+```shell
+yarn add -D abstractest @abstractest/jest
+```
+
 Write a test:
 ```ts
 // src/test/js/foo.test.js
@@ -22,7 +27,7 @@ describe('foo()', () => {
 ```
 Run tests via the required runner:
 ```shell
-npx abstractest --runner=jest src/test/js/**/*.test.js
+abstractest --runner=jest src/test/js/**/*.test.js
 ```
 
 ## Contents

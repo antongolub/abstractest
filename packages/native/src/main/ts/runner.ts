@@ -24,6 +24,7 @@ export const runner: Runner = {
       `--loader=${loader}`,
       '--input-type=module',
       '--experimental-specifier-resolution=node',
+      '--test-reporter=spec',
       '-e', script
     ], {
       cwd,

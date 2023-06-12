@@ -52,6 +52,7 @@ const touchJest = async (cwd: string, include: string[]) => {
       '^.+\\.tsx?$': [tsJestPath, {useESM: true}]
     },
     moduleFileExtensions: [
+      'mts',
       'ts',
       'tsx',
       'js',

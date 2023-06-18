@@ -70,6 +70,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@abstractest/mock@workspace:packages/mock":
+  version: 0.0.0-use.local
+  resolution: "@abstractest/mock@workspace:packages/mock"
+  dependencies:
+    "@abstractest/infra": "workspace:*"
+    jest-mock: "npm:^29.5.0"
+  languageName: unknown
+  linkType: soft
+
 "@abstractest/monorepo@workspace:.":
   version: 0.0.0-use.local
   resolution: "@abstractest/monorepo@workspace:."

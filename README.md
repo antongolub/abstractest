@@ -42,5 +42,9 @@ abstractest --runner=jest src/test/js/**/*.test.js
 | [@abstractest/types](./packages/types) | abstractest types | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/types)](https://www.npmjs.com/package/@abstractest/types) |
 | [abstractest](./packages/cli) | CLI for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/abstractest)](https://www.npmjs.com/package/abstractest) |
 
+## Implementation notes
+* Does not provide whole module mocking by design. It's recommended to use some kind of di/ioc for this purpose.
+* Enforces ESM. Use explicit file extensions (`.cjs`, '.mjs', '.mts', etc) to get necessary module context or initialize the legacy CommonJS API in place.
+
 ## License
 [MIT](./LICENSE)

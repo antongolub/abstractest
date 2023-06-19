@@ -1,5 +1,8 @@
 // https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/node/test.d.ts
 
+import {FunctionLike, Mock, SpyOn, UnknownFunction} from './mock'
+import {Describe, Expect, Hook, It, Mocker} from '@abstractest/types'
+
 declare module '@abstractest/types' {
   export type Done = (result?: any) => void
 
@@ -47,15 +50,23 @@ declare module '@abstractest/types' {
 
   export type Expect = (val: any) => {
     toEqual(val: any): void
+    // toHaveBeenCalled(): void
+    // toHaveBeenCalledTimes(n: number): void
   }
 
-  global {
-    const it: It
-    const describe: Describe
-    const expect: Expect
-    const before: Hook
-    const beforeEach: Hook
-    const after: Hook
-    const afterEach: Hook
+  export type Mocker = {
+    fn<T extends FunctionLike = UnknownFunction>(implementation?: T): Mock<T>
+    spyOn: SpyOn
   }
+}
+
+declare global {
+  const it: It
+  const describe: Describe
+  const expect: Expect
+  const before: Hook
+  const beforeEach: Hook
+  const after: Hook
+  const afterEach: Hook
+  const mock: Mocker
 }

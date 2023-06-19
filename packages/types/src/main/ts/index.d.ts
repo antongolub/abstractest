@@ -38,6 +38,7 @@ declare module '@abstractest/types' {
     beforeEach: Hook
     after: Hook
     afterEach: Hook
+    mock: Mocker
   }
 
   export type Run = (opts: {cwd: string, include: string[]}) => Promise<any>
@@ -50,8 +51,8 @@ declare module '@abstractest/types' {
 
   export type Expect = (val: any) => {
     toEqual(val: any): void
-    // toHaveBeenCalled(): void
-    // toHaveBeenCalledTimes(n: number): void
+    toHaveBeenCalled(): void
+    toHaveBeenCalledTimes(n: number): void
   }
 
   export type Mocker = {

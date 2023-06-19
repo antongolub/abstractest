@@ -1,11 +1,13 @@
 import { spawn, SuiteFn, TestApi, context } from '@abstractest/core'
+import {mock} from '@abstractest/mock'
 
 export const _api: {
   spawn: typeof spawn
   [name: string]: any
 } = {
   ...context.data.global,
-  spawn
+  spawn,
+  mock,
 }
 
 const noop = () => {/* noop */}
@@ -22,6 +24,11 @@ const it = Object.assign((name: string, fn?: SuiteFn) => _api.it(name, fn), {
   todo(name: string, fn?: SuiteFn) {        return _api.it.todo(name) },
 })
 
+const _mock = {
+  spyOn(...args: any[]) {      return _api?.mock?.spyOn(...args) },
+  fn(...args: any[]) {         return _api?.mock?.fn(...args) },
+}
+
 export const api: TestApi = {
   it,
   describe,
@@ -30,4 +37,5 @@ export const api: TestApi = {
   beforeEach(value) { return _api?.beforeEach(value) },
   after(value) {      return _api?.afterAll(value) },
   afterEach(value) {  return _api?.afterEach(value) },
+  mock: _mock,
 }

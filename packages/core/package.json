@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",
-    "@types/node": "^20.2.6",
+    "@types/node": "^20.3.1",
     "ts-node": "^10.9.1"
   }
 }

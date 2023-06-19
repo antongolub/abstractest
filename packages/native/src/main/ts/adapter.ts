@@ -38,10 +38,10 @@ const _describe = Object.assign((name: string, fn?: SuiteFn) => _api.describe(na
 })
 
 const _mock: Mocker = {
-  // eslint-disable-line
+  // eslint-disable-next-line
   // @ts-ignore
   spyOn(...args: any[]) {                 return _api.mock.spyOn(...args) },
-  // eslint-disable-line
+  // eslint-disable-next-line
   // @ts-ignore
   fn(...args: any[]) {          return _api.mock.fn(...args) },
 }

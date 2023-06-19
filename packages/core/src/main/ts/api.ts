@@ -25,7 +25,7 @@ export const afterEach: Hook = (fn) =>  getRunner().api.afterEach(fn)
 
 export const mock: Mocker = {
   fn(...args: any[]) { return          getRunner().api.mock.fn(...args) },
-  // eslint-disable-line
+  // eslint-disable-next-line
   // @ts-ignore
   spyOn(...args: any) { return                   getRunner().api.mock.spyOn(...args) },
 }

@@ -42,12 +42,13 @@ const touchJest = async (cwd: string, include: string[]) => {
   const script = `import {init} from '${abstractestPath}'; await init()`
 
   await fs.writeFile(jestConfigPath, JSON.stringify({
+    injectGlobals: true,
     moduleNameMapper: {
       '^@abstractest/core$': abstractestPath
     },
     setupFilesAfterEnv: [jestSetupPath],
     rootDir: cwd,
-    preset: tsJestPath,
+    // preset: tsJestPath,
     transform: {
       '^.+\\.tsx?$': [tsJestPath, {useESM: true}]
     },

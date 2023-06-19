@@ -18,13 +18,19 @@ const voidRunner: Runner = {
     }),
     expect() {
       return {
-        toEqual(expected: any) {/* noop */}
+        toEqual(expected: any) {/* noop */},
+        toHaveBeenCalled() {/* noop */},
+        toHaveBeenCalledTimes() {/* noop */},
       }
     },
     before() {/* noop */},
     beforeEach() {/* noop */},
     after() {/* noop */},
     afterEach() {/* noop */},
+    mock: {
+      fn(fn: any) { return Object.assign(fn, { _isMockFunction: true }) },
+      spyOn(obj: any, method: any) { return Object.assign(obj[method], { _isMockFunction: true }) },
+    },
   },
   async run() {/* noop */}
 }

@@ -1,4 +1,4 @@
-import {Describe, SuiteFn, It, TestFn, Expect, Hook} from './interface'
+import {Describe, SuiteFn, It, TestFn, Expect, Hook, Mocker} from './interface'
 import {getRunner, loadRunner} from './runner'
 
 export const it: It = Object.assign((name: string, fn?: TestFn) => getRunner().api.it(name, fn), {
@@ -23,6 +23,13 @@ export const after: Hook = (fn) =>      getRunner().api.after(fn)
 
 export const afterEach: Hook = (fn) =>  getRunner().api.afterEach(fn)
 
+export const mock: Mocker = {
+  fn(...args: any[]) { return          getRunner().api.mock.fn(...args) },
+  // eslint-disable-line
+  // @ts-ignore
+  spyOn(...args: any) { return                   getRunner().api.mock.spyOn(...args) },
+}
+
 export const init = async () => {
   const {
     ABSTRACTEST_RUNNER: runner,
@@ -41,7 +48,8 @@ export const init = async () => {
       before,
       beforeEach,
       after,
-      afterEach
+      afterEach,
+      mock
     })
   }
 }

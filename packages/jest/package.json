@@ -19,6 +19,7 @@
   "types": "target/dts/index.d.ts",
   "dependencies": {
     "@abstractest/core": "workspace:*",
+    "@abstractest/mock": "workspace:*",
     "jest": "^29.5.0",
     "ts-jest": "^29.1.0"
   },

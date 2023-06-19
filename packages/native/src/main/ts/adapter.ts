@@ -1,5 +1,7 @@
 import {Done, spawn, SuiteFn, Test, TestFn, TestApi} from '@abstractest/core'
+import {Mocker} from '@abstractest/types'
 import {expect} from '@abstractest/expect'
+import {mock} from '@abstractest/mock'
 import {after, afterEach, before, beforeEach, describe, it} from 'node:test'
 
 export const _api = {
@@ -9,7 +11,8 @@ export const _api = {
   after,
   afterEach,
   before,
-  beforeEach
+  beforeEach,
+  mock
 }
 
 const adaptTest = (method: any): Test => (name, fn) =>
@@ -34,6 +37,15 @@ const _describe = Object.assign((name: string, fn?: SuiteFn) => _api.describe(na
   todo(name: string, fn?: SuiteFn) { return _api.describe.todo(name, fn) },
 })
 
+const _mock: Mocker = {
+  // eslint-disable-line
+  // @ts-ignore
+  spyOn(...args: any[]) {                 return _api.mock.spyOn(...args) },
+  // eslint-disable-line
+  // @ts-ignore
+  fn(...args: any[]) {          return _api.mock.fn(...args) },
+}
+
 export const api: TestApi = {
   expect,
   it: _it,
@@ -42,4 +54,5 @@ export const api: TestApi = {
   beforeEach(fn) {    return _api.beforeEach(fn) },
   after(fn) {         return _api.after(fn) },
   afterEach(fn) {     return _api.afterEach(fn) },
+  mock: _mock,
 }

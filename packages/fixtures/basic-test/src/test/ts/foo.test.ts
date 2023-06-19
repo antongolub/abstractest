@@ -1,5 +1,5 @@
-import {it, describe, expect, after, afterEach, before, beforeEach} from 'abstractest'
-
+import * as assert from 'node:assert'
+import {it, describe, expect, after, afterEach, before, beforeEach, mock} from 'abstractest'
 import {foo} from '../../main/ts/foo'
 
 describe('foo()', () => {
@@ -26,3 +26,20 @@ describe('foo()', () => {
 
 describe.skip('skipped suite', () => {})
 describe.todo('todo suite')
+
+describe('mock', () => {
+  it('works fine', () => {
+    const m = mock.fn<(v: string) => string>(v => v)
+
+    m.mockReturnValueOnce('foo')
+    assert.equal(m('bar'), 'foo')
+    assert.equal(m('baz'), 'baz')
+    assert.deepEqual(m.mock.calls, [
+      ['bar'],
+      ['baz'],
+    ])
+
+    expect(m).toHaveBeenCalled()
+    expect(m).toHaveBeenCalledTimes(2)
+  })
+})

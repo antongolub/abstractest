@@ -44,7 +44,7 @@ abstractest --runner=jest src/test/js/**/*.test.js
 
 ## Implementation notes
 * Does not provide whole module mocking by design. It's recommended to use some kind of di/ioc for this purpose.
-* Enforces ESM. Use explicit file extensions (`.cjs`, '.mjs', '.mts', etc) to get necessary module context or initialize the legacy CommonJS API in place.
+* Enforces ESM usage. Declare explicit file extensions (`.cjs`, '.mjs', '.mts', etc) to get necessary module context or initialize the legacy CommonJS API in place.
 
 ## License
 [MIT](./LICENSE)

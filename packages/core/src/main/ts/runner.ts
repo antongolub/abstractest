@@ -2,6 +2,7 @@ import {pathToFileURL} from 'node:url'
 import {Runner} from './interface'
 import {r} from './util'
 import {context} from './context'
+import {Expect} from '@abstractest/types'
 
 const voidRunner: Runner = {
   name: 'void',
@@ -16,17 +17,18 @@ const voidRunner: Runner = {
       skip() {/* noop */},
       todo() {/* noop */},
     }),
-    expect() {
-      return {
-        any() {/* noop */},
-        toBe(expected: any){/* noop */},
-        toEqual(expected: any) {/* noop */},
-        toHaveBeenCalled() {/* noop */},
-        toHaveBeenCalledTimes(n: number) {/* noop */},
-        toThrow(expected: any) {/* noop */},
-        toMatchSnapshot() {/* noop */},
+    expect: new Proxy(() => {/* noop */}, {
+      apply() {
+        return new Proxy(() => {/* noop */}, {
+          get(target, prop, receiver) {
+            return () => {/* noop */}
+          }
+        })
+      },
+      get(target, prop, receiver) {
+        return () => {/* noop */}
       }
-    },
+    }) as unknown as Expect,
     before() {/* noop */},
     beforeEach() {/* noop */},
     after() {/* noop */},

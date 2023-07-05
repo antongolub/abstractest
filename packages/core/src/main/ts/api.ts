@@ -13,7 +13,27 @@ export const describe: Describe = Object.assign((name: string, fn?: SuiteFn) => 
   todo(name: string, fn?: SuiteFn) { return getRunner().api.describe.todo(name, fn) },
 })
 
-export const expect: Expect = (value) =>         getRunner().api.expect(value)
+export const expect: Expect = Object.assign(
+  (value: any) => getRunner().api.expect(value),
+  // Note Proxy is slower
+  Object.fromEntries([
+    'any',
+    'anything',
+    'arrayContaining',
+    'arrayContaining',
+    'closeTo',
+    'objectContaining',
+    'stringContaining',
+    'stringMatching',
+  ].map((key) => [key, (...args: any[]) => ((getRunner().api.expect as any)[key])(...args)])),
+  {
+    not: Object.fromEntries([
+      'objectContaining',
+      'stringContaining',
+      'stringMatching',
+    ].map((key) => [key, (...args: any[]) => ((getRunner().api.expect as any).not[key])(...args)]))
+  }
+) as unknown as Expect
 
 export const before: Hook = (fn) =>     getRunner().api.before(fn)
 

@@ -9,10 +9,10 @@
   ],
   "description": "Abstractest monorepo",
   "scripts": {
-    "build": "yarn bulk:topobuild",
     "clean": "rm -rf packages/*/target",
-    "readme:toc": "node ./packages/infra/scripts/readme-toc.mjs",
-    "test": "echo \"topobuild invokes test scripts\" && exit 0"
+    "build": "yarn bulk:topobuild",
+    "test": "echo \"topobuild invokes test scripts\" && exit 0",
+    "readme:toc": "node ./packages/infra/scripts/readme-toc.mjs"
   },
   "author": "Anton Golub <antongolub@antongolub.com>",
   "license": "MIT",

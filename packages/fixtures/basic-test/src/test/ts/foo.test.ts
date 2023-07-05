@@ -11,6 +11,8 @@ describe('foo()', () => {
 
   it('returns bar', (done) => {
     expect(foo()).toEqual('bar')
+    expect(foo()).toBe('bar')
+    expect(foo()).toMatchSnapshot()
     expect(count).toEqual(2)
     done()
   })

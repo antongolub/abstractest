@@ -49,14 +49,58 @@ declare module '@abstractest/types' {
     api: TestApi
   }
 
-  export type Expect = (val: any) => {
+  export type Expect = {
     any(val: any): any
-    toBe(val: any): void
-    toEqual(val: any): void
-    toHaveBeenCalled(): void
-    toHaveBeenCalledTimes(n: number): void
-    toThrow(val: any): void
-    toMatchSnapshot(): void
+    anything(): any
+    arrayContaining(array: any[]): any
+    arrayContaining(array: any[]): any
+    closeTo(num: number, numDigits?: number): any
+    objectContaining(object: any): any
+    stringContaining(string: string): any
+    stringMatching(value: string | RegExp): any
+    not: {
+      objectContaining(object: any): any
+      stringContaining(string: string): any
+      stringMatching(value: string | RegExp): any
+    }
+    (val: any): {
+      toBe(value: any): void
+      toHaveBeenCalled(): void
+      toHaveBeenCalledTimes(count: number): void
+      toHaveBeenCalledWith(...args: any[]): void
+      toHaveBeenLastCalledWith(...args: any[]): void
+      toHaveBeenNthCalledWith(index: number, ...args: any[]): void
+      toHaveReturned(): void
+      toHaveReturnedTimes(value: number): void
+      toHaveReturnedWith(value: any): void
+      toHaveLastReturnedWith(value: any): void
+      toHaveNthReturnedWith(nthCall: number, value: any): void
+      toHaveLength(len: number): void
+      toHaveProperty(key: string, value?: any): void
+      toBeCloseTo(value: number, numDigits?: number): void
+      toBeDefined(): void
+      toBeFalsy(): void
+      toBeGreaterThan(value: number | bigint): void
+      toBeGreaterThanOrEqual(value: number | bigint): void
+      toBeLessThan(value: number | bigint): void
+      toBeLessThanOrEqual(value: number | bigint): void
+      toBeInstanceOf(constructor: any): void
+      toBeNull(): void
+      toBeTruthy(): void
+      toBeUndefined(): void
+      toBeNaN(): void
+      toContain(item: any): void
+      toContainEqual(item: any): void
+      toEqual(value: any): void
+      toMatch(value: RegExp | string): void
+      toMatchObject(object: any): void
+      toMatchSnapshot(propertyMatchers?: any, hint?: any): void
+      toMatchInlineSnapshot(propertyMatchers?: any, inlineSnapshot?: any): void
+      toStrictEqual(value: any): void
+      toThrow(error?: any): void
+      toThrowErrorMatchingSnapshot(hint?: any): void
+      toThrowErrorMatchingInlineSnapshot(inlineSnapshot: any): void
+    }
   }
 
   export type Mocker = {

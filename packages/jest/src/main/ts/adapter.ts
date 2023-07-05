@@ -1,4 +1,4 @@
-import { spawn, SuiteFn, TestApi, context } from '@abstractest/core'
+import { spawn, SuiteFn, TestApi, context, proxifyExpect } from '@abstractest/core'
 import {mock} from '@abstractest/mock'
 
 export const _api: {
@@ -24,6 +24,8 @@ const it = Object.assign((name: string, fn?: SuiteFn) => _api.it(name, fn), {
   todo(name: string, fn?: SuiteFn) {        return _api.it.todo(name) },
 })
 
+const expect = proxifyExpect(() => _api?.expect)
+
 const _mock = {
   spyOn(...args: any[]) {      return _api?.mock?.spyOn(...args) },
   fn(...args: any[]) {         return _api?.mock?.fn(...args) },
@@ -32,7 +34,7 @@ const _mock = {
 export const api: TestApi = {
   it,
   describe,
-  expect(value) {              return _api?.expect(value) },
+  expect,
   before(value) {     return _api?.beforeAll(value) },
   beforeEach(value) { return _api?.beforeEach(value) },
   after(value) {      return _api?.afterAll(value) },

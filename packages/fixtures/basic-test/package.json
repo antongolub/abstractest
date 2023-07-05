@@ -9,8 +9,8 @@
   "scripts": {
     "build": "exit 0",
     "test": "concurrently --kill-others-on-fail 'npm:test:*'",
-    "test:native": "abstractest --runner=native --inject-globals 'src/test/ts/**/*'",
-    "test:jest": "abstractest --runner=jest --inject-globals 'src/test/ts/**/*'"
+    "test:native": "abstractest --runner=native --inject-globals 'src/test/ts/**/*.ts'",
+    "test:jest": "abstractest --runner=jest --inject-globals 'src/test/ts/**/*.ts'"
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",

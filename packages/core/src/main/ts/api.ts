@@ -13,8 +13,8 @@ export const describe: Describe = Object.assign((name: string, fn?: SuiteFn) => 
   todo(name: string, fn?: SuiteFn) { return getRunner().api.describe.todo(name, fn) },
 })
 
-export const expect: Expect = Object.assign(
-  (value: any) => getRunner().api.expect(value),
+export const proxifyExpect = (loader: () => any): Expect => Object.assign(
+  (value: any) => loader()(value),
   // Note Proxy is slower
   Object.fromEntries([
     'any',
@@ -25,15 +25,17 @@ export const expect: Expect = Object.assign(
     'objectContaining',
     'stringContaining',
     'stringMatching',
-  ].map((key) => [key, (...args: any[]) => ((getRunner().api.expect as any)[key])(...args)])),
+  ].map((key) => [key, (...args: any[]) => loader()[key](...args)])),
   {
     not: Object.fromEntries([
       'objectContaining',
       'stringContaining',
       'stringMatching',
-    ].map((key) => [key, (...args: any[]) => ((getRunner().api.expect as any).not[key])(...args)]))
+    ].map((key) => [key, (...args: any[]) => loader()[key](...args)]))
   }
 ) as unknown as Expect
+
+export const expect: Expect = proxifyExpect(() => getRunner().api.expect)
 
 export const before: Hook = (fn) =>     getRunner().api.before(fn)
 

@@ -18,9 +18,13 @@ const voidRunner: Runner = {
     }),
     expect() {
       return {
+        any() {/* noop */},
+        toBe(expected: any){/* noop */},
         toEqual(expected: any) {/* noop */},
         toHaveBeenCalled() {/* noop */},
-        toHaveBeenCalledTimes() {/* noop */},
+        toHaveBeenCalledTimes(n: number) {/* noop */},
+        toThrow(expected: any) {/* noop */},
+        toMatchSnapshot() {/* noop */},
       }
     },
     before() {/* noop */},

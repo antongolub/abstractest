@@ -50,9 +50,13 @@ declare module '@abstractest/types' {
   }
 
   export type Expect = (val: any) => {
+    any(val: any): any
+    toBe(val: any): void
     toEqual(val: any): void
     toHaveBeenCalled(): void
     toHaveBeenCalledTimes(n: number): void
+    toThrow(val: any): void
+    toMatchSnapshot(): void
   }
 
   export type Mocker = {

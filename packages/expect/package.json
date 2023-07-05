@@ -23,7 +23,7 @@
     "target/dts"
   ],
   "dependencies": {
-    "@jest/expect": "^29.5.0"
+    "@jest/expect": "^29.6.0"
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*"

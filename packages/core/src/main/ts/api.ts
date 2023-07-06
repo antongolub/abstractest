@@ -25,13 +25,14 @@ export const proxifyExpect = (loader: () => any): Expect => Object.assign(
     'objectContaining',
     'stringContaining',
     'stringMatching',
-  ].map((key) => [key, (...args: any[]) => loader()[key](...args)])),
+    'setState',
+  ].map((key) => [key, (...args: any[]) => loader()[key]?.(...args)])),
   {
     not: Object.fromEntries([
       'objectContaining',
       'stringContaining',
       'stringMatching',
-    ].map((key) => [key, (...args: any[]) => loader()[key](...args)]))
+    ].map((key) => [key, (...args: any[]) => loader()[key]?.(...args)]))
   }
 ) as unknown as Expect
 

@@ -1,8 +1,9 @@
 import {Done, spawn, SuiteFn, Test, TestFn, TestApi} from '@abstractest/core'
 import {Mocker} from '@abstractest/types'
-import {expect} from '@abstractest/expect'
+import {expect, SnapshotState} from '@abstractest/expect'
 import {mock} from '@abstractest/mock'
 import {after, afterEach, before, beforeEach, describe, it} from 'node:test'
+import * as path from 'node:path'
 
 export const _api = {
   spawn,
@@ -15,15 +16,52 @@ export const _api = {
   mock
 }
 
-const adaptTest = (method: any): Test => (name, fn) =>
-  method(name, (_ctx: any, done: Done) => {
-    let cb = done
-    const result = fn?.((result) => { cb = () => {/* noop */}; done(result) })
+const g: any = global
+
+g.__currentTestName = (g.__currentTestName || [])
+
+const names: string[] = []
+
+const adaptTest = (method: any): Test => function (name, fn) {
+  g.__currentTestName.push(name)
+
+  names.push(g.__currentTestName.join(' '))
+
+  method(name, function (_ctx: any, done: Done) {
+    const currentTestName = names.shift()
+    const testPath = g.__testPath
+    const snapshotPath = path.join(g.__testRoot, '__snapshots__', `${path.basename(testPath)}.snap`)
+    const snapshotState = new SnapshotState(snapshotPath, {
+      expand: undefined,
+      snapshotFormat: { escapeString: false, printBasicPrototype: false },
+      updateSnapshot: 'new',
+      rootDir: process.cwd(),
+      prettierPath: 'prettier',
+      // rootDir: config.rootDir,
+      // snapshotFormat: config.snapshotFormat,
+      // updateSnapshot: globalConfig.updateSnapshot,
+    });
+
+    const save = () => {
+      snapshotState.save()
+      // @ts-ignore
+      expect?.setState({snapshotState: undefined, testPath: undefined, currentTestName: undefined})
+    }
+
+    // @ts-ignore
+    expect?.setState({snapshotState, testPath, currentTestName})
+    
+    // let cb = (result: any) => {snapshotState.save(); done(result)}
+    let cb = () => { save(); done() }
+    const result = fn?.((result) => { cb = () => {save()}; done(result) })
 
     typeof result?.then == 'function'
       ? result.then(() => cb()).catch(cb)
       : cb()
   })
+
+  g.__currentTestName.pop(name)
+}
 
 const _it = Object.assign((name: string, fn?: TestFn) => adaptTest(_api.it)(name, fn), {
   only(name: string, fn?: TestFn) { return adaptTest(_api.it.only)(name, fn) },
@@ -31,7 +69,16 @@ const _it = Object.assign((name: string, fn?: TestFn) => adaptTest(_api.it)(name
   todo(name: string, fn?: TestFn) { return adaptTest(_api.it.todo)(name, fn) },
 })
 
-const _describe = Object.assign((name: string, fn?: SuiteFn) => _api.describe(name, fn), {
+const _describe = Object.assign((name: string, fn?: SuiteFn) => {
+  return _api.describe(name, (...args: any[]) => {
+    // @ts-ignore
+    g.__currentTestName.push(name)
+    // @ts-ignore
+    fn(...args)
+    // @ts-ignore
+    g.__currentTestName.pop(name)
+  })
+}, {
   only(name: string, fn?: SuiteFn) { return _api.describe.only(name, fn) },
   skip(name: string, fn?: SuiteFn) { return _api.describe.skip(name, fn) },
   todo(name: string, fn?: SuiteFn) { return _api.describe.todo(name, fn) },

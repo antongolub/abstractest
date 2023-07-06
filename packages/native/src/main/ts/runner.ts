@@ -4,6 +4,19 @@ import {Runner, r} from '@abstractest/core'
 import glob from 'fast-glob'
 import {api, _api} from './adapter'
 
+const getCommonPath = (files: string[]): string => {
+  const common = files.length === 1
+    ? files[0].lastIndexOf('/') + 1
+    : [...(files[0])].findIndex((c, i) => files.some(f => f.charAt(i) !== c))
+
+  let p = files[0].slice(0, common)
+  if (p.endsWith('/')) {
+    return p
+  }
+
+  return p.slice(0, p.lastIndexOf('/') + 1)
+}
+
 export const runner: Runner = {
   name: 'native',
   async run({cwd, include}) {
@@ -11,8 +24,16 @@ export const runner: Runner = {
     const c8 = path.resolve(r.resolve('c8'), '../bin/c8.js')
     const loader = r.resolve('ts-node/esm')
     const core = r.resolve('@abstractest/core')
-    const script = `import {init} from '${core}'; await init(); await Promise.all(${JSON.stringify(suites)}.map(suite => import(suite)))`
-
+    const testRoot = getCommonPath(suites)
+    const script = `
+import {init} from '${core}'
+await init()
+global.__testRoot = '${testRoot.replace('file://', '')}'
+await Promise.all(${JSON.stringify(suites)}.map(suite => {
+  global.__testPath = suite.replace('file://', '')
+  return import(suite)
+}))
+`
     await _api.spawn('node', [
       c8,
       '-r=lcov',

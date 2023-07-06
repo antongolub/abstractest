@@ -41,7 +41,7 @@
     "build:docs": "typedoc --options src/main/typedoc",
     "test": "concurrently --kill-others-on-fail 'npm:test:*'",
     "test:lint": "eslint -c src/test/lint/.eslintrc.json src",
-    "test:unit": "c8 -r lcov -r text -o target/coverage -x src/test node --loader ts-node/esm --experimental-specifier-resolution=node ../infra/scripts/test.mjs"
+    "test:unit": "c8 -r lcov -r text -o target/coverage --include src/main/ts node --loader ts-node/esm --experimental-specifier-resolution=node ../infra/scripts/test.mjs"
   },
   "repository": {
     "type": "git",

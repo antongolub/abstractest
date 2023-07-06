@@ -9,7 +9,7 @@ const getCommonPath = (files: string[]): string => {
     ? files[0].lastIndexOf('/') + 1
     : [...(files[0])].findIndex((c, i) => files.some(f => f.charAt(i) !== c))
 
-  let p = files[0].slice(0, common)
+  const p = files[0].slice(0, common)
   if (p.endsWith('/')) {
     return p
   }

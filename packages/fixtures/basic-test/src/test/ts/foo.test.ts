@@ -9,12 +9,15 @@ describe('foo()', () => {
   beforeEach(async () => new Promise((resolve, reject) =>
     setTimeout(() => resolve(count++),10)))
 
-  it('returns bar', (done) => {
-    expect(foo()).toEqual('bar')
-    expect(foo()).toBe('bar')
-    expect(foo()).toMatchSnapshot()
-    expect(count).toEqual(2)
-    done()
+  describe('nested', () => {
+    it('returns bar', (done) => {
+      expect(foo()).toEqual('bar')
+      expect(foo()).toBe('bar')
+      expect(foo()).toMatchSnapshot()
+
+      expect(count).toEqual(2)
+      done()
+    })
   })
 
   it('returns bar (async)', async () => {

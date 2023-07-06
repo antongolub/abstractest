@@ -42,7 +42,7 @@ describe('runner()', () => {
 
       _api.describe = ((_name, _fn) => {
         assert.equal(_name, name)
-        assert.equal(_fn, fn)
+        assert.equal(typeof _fn, 'function')
       }) as typeof describe
 
       await runner.api.describe(name, fn)

@@ -22,36 +22,39 @@ g.__currentTestName = (g.__currentTestName || [])
 
 const names: string[] = []
 
-const adaptTest = (method: any): Test => function (name, fn) {
+const adaptTest = (method: any): Test => (name, fn) => {
   g.__currentTestName.push(name)
 
   names.push(g.__currentTestName.join(' '))
 
-  method(name, function (_ctx: any, done: Done) {
-    const currentTestName = names.shift()
-    const testPath = g.__testPath
-    const snapshotPath = path.join(g.__testRoot, '__snapshots__', `${path.basename(testPath)}.snap`)
-    const snapshotState = new SnapshotState(snapshotPath, {
-      expand: undefined,
-      snapshotFormat: { escapeString: false, printBasicPrototype: false },
-      updateSnapshot: 'new',
-      rootDir: process.cwd(),
-      prettierPath: 'prettier',
-      // rootDir: config.rootDir,
-      // snapshotFormat: config.snapshotFormat,
-      // updateSnapshot: globalConfig.updateSnapshot,
-    });
+  method(name, (_ctx: any, done: Done) => {
+    let save = () => {/* noop */} // eslint-disable-line unicorn/consistent-function-scoping
 
-    const save = () => {
-      snapshotState.save()
+    if (g.__testPath && g.__testRoot) {
+      const currentTestName = names.shift()
+      const testPath = g.__testPath
+      const snapshotPath = path.join(g.__testRoot, '__snapshots__', `${path.basename(testPath)}.snap`)
+      const snapshotState = new SnapshotState(snapshotPath, {
+        expand: undefined,
+        snapshotFormat: { escapeString: false, printBasicPrototype: false },
+        updateSnapshot: 'new',
+        rootDir: process.cwd(),
+        prettierPath: 'prettier',
+        // rootDir: config.rootDir,
+        // snapshotFormat: config.snapshotFormat,
+        // updateSnapshot: globalConfig.updateSnapshot,
+      });
+
+      save = () => {
+        snapshotState.save()
+        // eslint-disable-next-line
+        // @ts-ignore
+        expect?.setState({snapshotState: undefined, testPath: undefined, currentTestName: undefined})
+      }
       // eslint-disable-next-line
       // @ts-ignore
-      expect?.setState({snapshotState: undefined, testPath: undefined, currentTestName: undefined})
+      expect?.setState({snapshotState, testPath, currentTestName})
     }
-
-    // eslint-disable-next-line
-    // @ts-ignore
-    expect?.setState({snapshotState, testPath, currentTestName})
 
     let cb = () => { save(); done() }
     const result = fn?.((result) => { cb = () => {save()}; done(result) })

@@ -44,14 +44,15 @@ const adaptTest = (method: any): Test => function (name, fn) {
 
     const save = () => {
       snapshotState.save()
+      // eslint-disable-next-line
       // @ts-ignore
       expect?.setState({snapshotState: undefined, testPath: undefined, currentTestName: undefined})
     }
 
+    // eslint-disable-next-line
     // @ts-ignore
     expect?.setState({snapshotState, testPath, currentTestName})
-    
-    // let cb = (result: any) => {snapshotState.save(); done(result)}
+
     let cb = () => { save(); done() }
     const result = fn?.((result) => { cb = () => {save()}; done(result) })
 
@@ -71,10 +72,13 @@ const _it = Object.assign((name: string, fn?: TestFn) => adaptTest(_api.it)(name
 
 const _describe = Object.assign((name: string, fn?: SuiteFn) => {
   return _api.describe(name, (...args: any[]) => {
+    // eslint-disable-next-line
     // @ts-ignore
     g.__currentTestName.push(name)
+    // eslint-disable-next-line
     // @ts-ignore
     fn(...args)
+    // eslint-disable-next-line
     // @ts-ignore
     g.__currentTestName.pop(name)
   })

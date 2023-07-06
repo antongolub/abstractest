@@ -5,11 +5,17 @@ import glob from 'fast-glob'
 import {api, _api} from './adapter'
 
 const getCommonPath = (files: string[]): string => {
-  const common = files.length === 1
-    ? files[0].lastIndexOf('/') + 1
-    : [...(files[0])].findIndex((c, i) => files.some(f => f.charAt(i) !== c))
+  const fl = files.length
+  if (fl === 0) {
+    return ''
+  }
 
-  const p = files[0].slice(0, common)
+  const f0 = files[0]
+  const common = fl === 1
+    ? f0.lastIndexOf('/') + 1
+    : [...(f0)].findIndex((c, i) => files.some(f => f.charAt(i) !== c))
+
+  const p = f0.slice(0, common)
   if (p.endsWith('/')) {
     return p
   }

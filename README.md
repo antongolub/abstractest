@@ -10,7 +10,7 @@ and execute them via any _appropriate_ provider.
 
 Today, [Jest dominates over all testing frameworks and libraries](https://npmtrends.com/ava-vs-jasmine-vs-jest-vs-mocha-vs-uvu-vs-vitest), 
 in fact it represents the industry standard. Therefore, seems reasonable to take this notation and syntax as a basis,
-and then try to run _Jest-like_ tests on different runners.
+and then try to run _Jest-like_ tests on different runners. It may turn out to be faster and more resource-efficient.
 
 ## Usage
 Install:

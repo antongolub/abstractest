@@ -26,6 +26,13 @@ const voidRunner: Runner = {
         })
       },
       get(target, prop, receiver) {
+        if (prop === 'not') {
+          return new Proxy(() => {/* noop */}, {
+            get(target, prop, receiver) {
+              return () => {/* noop */}
+            }
+          })
+        }
         return () => {/* noop */}
       }
     }) as unknown as Expect,

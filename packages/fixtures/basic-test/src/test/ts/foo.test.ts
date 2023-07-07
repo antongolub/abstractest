@@ -14,6 +14,7 @@ describe('foo()', () => {
       expect(foo()).toEqual('bar')
       expect(foo()).toBe('bar')
       expect(foo()).toMatchSnapshot()
+      expect(foo()).not.toBe('quz')
 
       expect(count).toEqual(2)
       done()

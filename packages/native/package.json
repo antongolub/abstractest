@@ -20,6 +20,7 @@
   "dependencies": {
     "@abstractest/core": "workspace:*",
     "@abstractest/expect": "workspace:*",
+    "@abstractest/mock": "workspace:*",
     "c8": "^8.0.0",
     "fast-glob": "^3.3.0",
     "ts-node": "^10.9.1"

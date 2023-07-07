@@ -1,10 +1,10 @@
 # abstractest
 [![CI](https://github.com/antongolub/abstractest/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/antongolub/abstractest/actions/workflows/ci.yaml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5aae4759bc5da3c06ae0/maintainability)](https://codeclimate.com/github/antongolub/abstractest/maintainability)
-> Abstract testing processor
+> An abstract testing processor
 
 ## Hypothesis
-Find out if it's possible to declare unit tests in some _generic_ notation,
+Find out if it's possible to declare unit tests in  some [_generic_](./packages/types) notation,
 and execute them via any _appropriate_ provider.
 
 ## Usage
@@ -43,8 +43,8 @@ abstractest --runner=jest src/test/js/**/*.test.js
 | [abstractest](./packages/cli) | CLI for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/abstractest)](https://www.npmjs.com/package/abstractest) |
 
 ## Implementation notes
-* Does not provide whole module mocking by design. It's recommended to use some kind of di/ioc for this purpose.
-* Enforces ESM usage. Declare explicit file extensions (`.cjs`, '.mjs', '.mts', etc) to get necessary module context or initialize the legacy CommonJS API in place.
+* Does not provide whole module mocking by design. It's recommended to use some kind of DI/IoC for this purpose.
+* Enforces ESM usage. Declare explicit file extensions (`.cjs`, `.mjs`, `.mts`, etc) to get necessary module context or initialize the legacy CommonJS API in place.
 
 ## License
 [MIT](./LICENSE)

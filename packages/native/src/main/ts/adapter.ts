@@ -27,7 +27,7 @@ const adaptTest = (method: any): Test => (name, fn) => {
 
   names.push(g.__currentTestName.join(' '))
 
-  method(name, (_ctx: any, done: Done) => {
+  const handler = (done = (result?: any) => {/* noop */}) => {
     let save = () => {/* noop */} // eslint-disable-line unicorn/consistent-function-scoping
 
     if (g.__testPath && g.__testRoot) {
@@ -56,13 +56,20 @@ const adaptTest = (method: any): Test => (name, fn) => {
       expect?.setState({snapshotState, testPath, currentTestName})
     }
 
-    let cb = () => { save(); done() }
-    const result = fn?.((result) => { cb = () => {save()}; done(result) })
+    let cb = (result?: any) => { save(); done(result); cb = () => {}}
+    const result = fn?.(cb)
 
     typeof result?.then == 'function'
       ? result.then(() => cb()).catch(cb)
       : cb()
-  })
+  }
+
+  // TODO refactor workaround
+  if (/^[^(]+\([^)]+,/.test(fn?.toString() + '')) {
+    method(name, (_ctx: any, done: Done) => handler(done))
+  } else {
+    method(name, () => handler())
+  }
 
   g.__currentTestName.pop(name)
 }

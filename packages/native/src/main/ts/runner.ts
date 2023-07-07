@@ -50,6 +50,7 @@ await ${JSON.stringify(suites)}.reduce(async(m,suite) => {
       '-x=src/scripts',
       '-x=src/test',
       'node',
+      '--unhandled-rejections=warn',
       `--loader=${loader}`,
       '--input-type=module',
       '--experimental-specifier-resolution=node',

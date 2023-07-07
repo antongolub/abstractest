@@ -35,10 +35,12 @@ export const runner: Runner = {
 import {init} from '${core}'
 await init()
 global.__testRoot = '${testRoot.replace('file://', '')}'
-await Promise.all(${JSON.stringify(suites)}.map(suite => {
+
+await ${JSON.stringify(suites)}.reduce(async(m,suite) => {
+  await m
   global.__testPath = suite.replace('file://', '')
   return import(suite)
-}))
+}, Promise.resolve(''))
 `
     await _api.spawn('node', [
       c8,

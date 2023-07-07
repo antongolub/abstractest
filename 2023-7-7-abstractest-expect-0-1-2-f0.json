@@ -1,0 +1,9 @@
+{
+  "META_VERSION": "1",
+  "name": "@abstractest/expect",
+  "hash": "f5dd70884952f60c1bd977bf9d98ce49081809ce",
+  "version": "0.1.2",
+  "dependencies": {
+    "@abstractest/types": "0.4.0"
+  }
+}

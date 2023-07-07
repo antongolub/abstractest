@@ -6,7 +6,7 @@ import {Describe, Expect, Hook, It, Mocker} from '@abstractest/types'
 declare module '@abstractest/types' {
   export type Done = (result?: any) => void
 
-  export type TestFn = (done: Done) => void | Promise<void>
+  export type TestFn = (done: Done) => any | Promise<any>
 
   export type Test = (name: string, fn?: TestFn) => void
 

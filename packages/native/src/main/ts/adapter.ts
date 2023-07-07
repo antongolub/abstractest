@@ -27,7 +27,7 @@ const adaptTest = (method: any): Test => (name, fn) => {
 
   names.push(g.__currentTestName.join(' '))
 
-  const handler = (done = (result?: any) => {/* noop */}) => {
+  const handler = (done = (_result?: any) => {/* noop */}) => {
     let save = () => {/* noop */} // eslint-disable-line unicorn/consistent-function-scoping
 
     if (g.__testPath && g.__testRoot) {
@@ -56,10 +56,10 @@ const adaptTest = (method: any): Test => (name, fn) => {
       expect?.setState({snapshotState, testPath, currentTestName})
     }
 
-    let cb = (result?: any) => { save(); done(result); cb = () => {}}
+    let cb = (result?: any) => { save(); done(result); cb = () => {/* noop */}}
     const result = fn?.(cb)
 
-    typeof result?.then == 'function'
+    return typeof result?.then == 'function'
       ? result.then(() => cb()).catch(cb)
       : cb()
   }
@@ -71,7 +71,7 @@ const adaptTest = (method: any): Test => (name, fn) => {
     method(name, () => handler())
   }
 
-  g.__currentTestName.pop(name)
+  g.__currentTestName.pop()
 }
 
 const _it = Object.assign((name: string, fn?: TestFn) => adaptTest(_api.it)(name, fn), {
@@ -82,15 +82,11 @@ const _it = Object.assign((name: string, fn?: TestFn) => adaptTest(_api.it)(name
 
 const _describe = Object.assign((name: string, fn?: SuiteFn) => {
   return _api.describe(name, (...args: any[]) => {
-    // eslint-disable-next-line
-    // @ts-ignore
     g.__currentTestName.push(name)
     // eslint-disable-next-line
     // @ts-ignore
     fn(...args)
-    // eslint-disable-next-line
-    // @ts-ignore
-    g.__currentTestName.pop(name)
+    g.__currentTestName.pop()
   })
 }, {
   only(name: string, fn?: SuiteFn) { return _api.describe.only(name, fn) },

@@ -17,21 +17,23 @@ export const _api = {
 }
 
 const g: any = global
+const currentTestNameChunks: string[]  = []
+const queue: string[] = []
 
-g.__currentTestName = (g.__currentTestName || [])
+const trackName = (handler: (name: string, fn: any) => any): typeof handler => (name, fn) => {
+  currentTestNameChunks.push(name)
+  handler(name, fn)
+  currentTestNameChunks.pop()
+}
 
-const names: string[] = []
-
-const adaptTest = (method: any): Test => (name, fn) => {
-  g.__currentTestName.push(name)
-
-  names.push(g.__currentTestName.join(' '))
+const adaptTest = (method: any): Test => trackName((name, fn) => {
+  queue.push(currentTestNameChunks.join(' '))
 
   const handler = (done = (_result?: any) => {/* noop */}) => {
     let save = () => {/* noop */} // eslint-disable-line unicorn/consistent-function-scoping
 
     if (g.__testPath && g.__testRoot) {
-      const currentTestName = names.shift()
+      const currentTestName = queue.shift()
       const testPath = g.__testPath
       const snapshotPath = path.join(g.__testRoot, '__snapshots__', `${path.basename(testPath)}.snap`)
       const snapshotState = new SnapshotState(snapshotPath, {
@@ -70,28 +72,20 @@ const adaptTest = (method: any): Test => (name, fn) => {
   } else {
     method(name, () => handler())
   }
-
-  g.__currentTestName.pop()
-}
-
-const _it = Object.assign((name: string, fn?: TestFn) => adaptTest(_api.it)(name, fn), {
-  only(name: string, fn?: TestFn) { return adaptTest(_api.it.only)(name, fn) },
-  skip(name: string, fn?: TestFn) { return adaptTest(_api.it.skip)(name, fn) },
-  todo(name: string, fn?: TestFn) { return adaptTest(_api.it.todo)(name, fn) },
 })
 
-const _describe = Object.assign((name: string, fn?: SuiteFn) => {
-  return _api.describe(name, (...args: any[]) => {
-    g.__currentTestName.push(name)
-    // eslint-disable-next-line
-    // @ts-ignore
-    fn(...args)
-    g.__currentTestName.pop()
-  })
-}, {
-  only(name: string, fn?: SuiteFn) { return _api.describe.only(name, fn) },
-  skip(name: string, fn?: SuiteFn) { return _api.describe.skip(name, fn) },
-  todo(name: string, fn?: SuiteFn) { return _api.describe.todo(name, fn) },
+const _it =
+  Object.assign((name: string, fn?: TestFn) => { adaptTest(_api.it)(name, fn) }, {
+  only(name: string, fn?: TestFn) { adaptTest(_api.it.only)(name, fn) },
+  skip(name: string, fn?: TestFn) { adaptTest(_api.it.skip)(name, fn) },
+  todo(name: string, fn?: TestFn) { adaptTest(_api.it.todo)(name, fn) },
+})
+
+const _describe =
+  Object.assign((name: string, fn?: SuiteFn) => { trackName(_api.describe)(name, fn)}, {
+  only(name: string, fn?: SuiteFn) { trackName(_api.describe.only)(name, fn) },
+  skip(name: string, fn?: SuiteFn) { trackName(_api.describe.skip)(name, fn) },
+  todo(name: string, fn?: SuiteFn) { trackName(_api.describe.todo)(name, fn) },
 })
 
 const _mock: Mocker = {

@@ -1,0 +1,11 @@
+{
+  "META_VERSION": "1",
+  "name": "@abstractest/native",
+  "hash": "4d010d7a6a634a17e31b306fbb3683e83f22b5d7",
+  "version": "0.3.4",
+  "dependencies": {
+    "@abstractest/core": "0.4.2",
+    "@abstractest/expect": "0.1.3",
+    "@abstractest/mock": "0.0.1"
+  }
+}

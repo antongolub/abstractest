@@ -52,15 +52,25 @@ declare module '@abstractest/types' {
   interface Asserters {
     toBe(value: any): void
     toHaveBeenCalled(): void
+    toBeCalled(): void // alias ↑
     toHaveBeenCalledTimes(count: number): void
+    toBeCalledTimes(count: number): void // ↑ alias
     toHaveBeenCalledWith(...args: any[]): void
+    toBeCalledWith(...args: any[]): void // ↑ alias
     toHaveBeenLastCalledWith(...args: any[]): void
+    lastCalledWith(...args: any[]): void // ↑ alias
     toHaveBeenNthCalledWith(index: number, ...args: any[]): void
+    nthCalledWith(index: number, ...args: any[]): void // ↑ alias
     toHaveReturned(): void
+    toReturn(): void // ↑ alias
     toHaveReturnedTimes(value: number): void
+    toReturnTimes(value: number): void // ↑ alias
     toHaveReturnedWith(value: any): void
+    toReturnWith(value: any): void // ↑ alias
     toHaveLastReturnedWith(value: any): void
+    lastReturnedWith(value: any): void // ↑ alias
     toHaveNthReturnedWith(nthCall: number, value: any): void
+    nthReturnedWith(nthCall: number, value: any): void // ↑ alias
     toHaveLength(len: number): void
     toHaveProperty(key: string, value?: any): void
     toBeCloseTo(value: number, numDigits?: number): void
@@ -84,6 +94,7 @@ declare module '@abstractest/types' {
     toMatchInlineSnapshot(propertyMatchers?: any, inlineSnapshot?: any): void
     toStrictEqual(value: any): void
     toThrow(error?: any): void
+    toThrowError(error?: any): void // ↑ alias
     toThrowErrorMatchingSnapshot(hint?: any): void
     toThrowErrorMatchingInlineSnapshot(inlineSnapshot: any): void
   }

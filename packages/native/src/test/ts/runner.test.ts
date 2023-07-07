@@ -19,33 +19,50 @@ describe('runner()', () => {
   })
 
   describe('api', () => {
-    it('`it()` passes args to native `it`', async () => {
+    it('`it()` passes args to native `it`', (_ctx, done) => {
       let calls = 0
-      let d = 0
+      const name = 'foo'
+      const fn = () => { return Promise.resolve(calls++) }
+
+      _api.it = ((_name, _fn) => {
+        assert.equal(_name, name)
+        assert.ok(_fn !== fn)
+        _fn().then(() => {
+          assert.equal(calls, 1)
+          done()
+        })
+      }) as typeof it
+
+      runner.api.it(name, fn)
+    })
+
+    it('`it()` handles promises', (_ctx, done) => {
+      let calls = 0
       const name = 'foo'
       const fn = () => { calls++ }
 
       _api.it = ((_name, _fn) => {
         assert.equal(_name, name)
         assert.ok(_fn !== fn)
-        _fn({}, () => d++)
+        _fn()
         assert.equal(calls, 1)
-        assert.equal(d, 1)
+        done()
       }) as typeof it
 
-      await runner.api.it(name, fn)
+      runner.api.it(name, fn)
     })
 
-    it('`describe()` passes args to native `describe`', async () => {
+    it('`describe()` passes args to native `describe`', (_ctx, done) => {
       const name = 'foo'
       const fn = () => {}
 
       _api.describe = ((_name, _fn) => {
         assert.equal(_name, name)
         assert.equal(typeof _fn, 'function')
+        done()
       }) as typeof describe
 
-      await runner.api.describe(name, fn)
+      runner.api.describe(name, fn)
     })
 
     describe('`expect()`', () => {

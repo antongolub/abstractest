@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`with global test API foo() returns bar (async) 1`] = `"bar"`;

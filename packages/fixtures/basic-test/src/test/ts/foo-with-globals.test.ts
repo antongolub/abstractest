@@ -4,5 +4,6 @@ import '@abstractest/types'
 describe('with global test API', () => {
   it('foo() returns bar (async)', () => {
     expect(foo()).toEqual('bar')
+    expect(foo()).toMatchSnapshot()
   })
 })

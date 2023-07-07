@@ -21,7 +21,7 @@ const digest = Object.values(packages)
     return m + `\n| [${name}](./${relPath}) | ${description} | ${badge} |`
   }, '| Package | Description | Latest |\n|---------|-------------|--------|')
 
-readmeContents = readmeContents.replace(/(## Contents)([\s\S]+)(##)/, (_, pre, __, post) =>
+readmeContents = readmeContents.replace(/(## Contents)([^#]+)(##)/, (_, pre, __, post) =>
   `${pre}\n${digest}\n\n${post}`
 )
 

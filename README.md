@@ -38,6 +38,7 @@ abstractest --runner=jest src/test/js/**/*.test.js
 | [@abstractest/fixture-basic-test](./packages/fixtures/basic-test) | Testing fixtures |  |
 | [@abstractest/infra](./packages/infra) | abstractest monorepo infra assets |  |
 | [@abstractest/jest](./packages/jest) | Jest runner for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/jest)](https://www.npmjs.com/package/@abstractest/jest) |
+| [@abstractest/mock](./packages/mock) | Mocker module for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/mock)](https://www.npmjs.com/package/@abstractest/mock) |
 | [@abstractest/native](./packages/native) | Native node:test runner for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/native)](https://www.npmjs.com/package/@abstractest/native) |
 | [@abstractest/types](./packages/types) | abstractest types | [![npm (scoped)](https://img.shields.io/npm/v/@abstractest/types)](https://www.npmjs.com/package/@abstractest/types) |
 | [abstractest](./packages/cli) | CLI for abstractest | [![npm (scoped)](https://img.shields.io/npm/v/abstractest)](https://www.npmjs.com/package/abstractest) |

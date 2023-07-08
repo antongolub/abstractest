@@ -18,7 +18,7 @@ __metadata:
   dependencies:
     "@abstractest/infra": "workspace:*"
     "@abstractest/types": "workspace:*"
-    "@types/node": "npm:^20.4.0"
+    "@types/node": "npm:^20.4.1"
     ts-node: "npm:^10.9.1"
   languageName: unknown
   linkType: soft
@@ -63,7 +63,7 @@ __metadata:
     ts-node: "npm:^10.9.1"
     typedoc: "npm:^0.24.8"
     typescript: "npm:^5.1.6"
-    zx-bulk-release: "npm:^2.11.4"
+    zx-bulk-release: "npm:^2.11.5"
   languageName: unknown
   linkType: soft
 
@@ -74,7 +74,7 @@ __metadata:
     "@abstractest/core": "workspace:*"
     "@abstractest/infra": "workspace:*"
     "@abstractest/mock": "workspace:*"
-    "@types/node": "npm:^20.4.0"
+    "@types/node": "npm:^20.4.1"
     jest: "npm:^29.6.1"
     ts-jest: "npm:^29.1.1"
   languageName: unknown
@@ -103,7 +103,7 @@ __metadata:
     "@abstractest/expect": "workspace:*"
     "@abstractest/infra": "workspace:*"
     "@abstractest/mock": "workspace:*"
-    "@types/node": "npm:^20.4.0"
+    "@types/node": "npm:^20.4.1"
     c8: "npm:^8.0.0"
     fast-glob: "npm:^3.3.0"
     ts-node: "npm:^10.9.1"
@@ -115,7 +115,7 @@ __metadata:
   resolution: "@abstractest/types@workspace:packages/types"
   dependencies:
     "@abstractest/infra": "workspace:*"
-    "@types/node": "npm:^20.4.0"
+    "@types/node": "npm:^20.4.1"
   languageName: unknown
   linkType: soft
 
@@ -1422,10 +1422,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.4.0":
-  version: 20.4.0
-  resolution: "@types/node@npm:20.4.0"
-  checksum: 204d77441c42c2d51fb277efc1440487c5c2dc9e26b30ab0de185860616c90bd4ec7cd25542c8a882092ee77f708b2a7b740d398f048cf5dce3052fe7964aa37
+"@types/node@npm:^20.4.1":
+  version: 20.4.1
+  resolution: "@types/node@npm:20.4.1"
+  checksum: f93efd74c0a61633d37aef3a42d753a8471036c135c77048160b17fee14c6bb52daeda37359eada9debef58b3f3c9c9ebe4c6aade1d70026c99a2f809f774e5f
   languageName: node
   linkType: hard
 
@@ -1630,7 +1630,7 @@ __metadata:
   dependencies:
     "@abstractest/core": "workspace:*"
     "@abstractest/infra": "workspace:*"
-    "@types/node": "npm:^20.4.0"
+    "@types/node": "npm:^20.4.1"
     minimist: "npm:^1.2.8"
   bin:
     abstractest: ./target/esm/cli.mjs
@@ -6994,9 +6994,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zx-bulk-release@npm:^2.11.4":
-  version: 2.11.4
-  resolution: "zx-bulk-release@npm:2.11.4"
+"zx-bulk-release@npm:^2.11.5":
+  version: 2.11.5
+  resolution: "zx-bulk-release@npm:2.11.5"
   dependencies:
     "@semrel-extra/topo": "npm:^1.13.0"
     cosmiconfig: "npm:^8.2.0"
@@ -7004,7 +7004,7 @@ __metadata:
     zx-extra: "npm:^2.5.4"
   bin:
     zx-bulk-release: src/main/js/cli.js
-  checksum: 528cb364d9959f2b09f675c8a491822eb26a9a2b48f400c80445d0f12fc56f4ce2b365dc3b3279426745d3e5bba5d94d0ea25767cf5340f6ec9dc2ae706d6fa6
+  checksum: 1dc16e5250e68e708ab8bf423a7f692499b3fd93c599259f54ce396e93495012a36baa631ff699fc9263b895fc43ba0829fd3b89dfdcfcf488b3518e67e96dad
   languageName: node
   linkType: hard
 

@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",
-    "@types/node": "^20.4.0"
+    "@types/node": "^20.4.1"
   },
   "files": [
     "target/cjs",

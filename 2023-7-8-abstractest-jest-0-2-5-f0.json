@@ -1,0 +1,10 @@
+{
+  "META_VERSION": "1",
+  "name": "@abstractest/jest",
+  "hash": "b49b892e1827acdce17dc3241d6c8df367714b1f",
+  "version": "0.2.5",
+  "dependencies": {
+    "@abstractest/core": "0.4.3",
+    "@abstractest/mock": "0.0.2"
+  }
+}

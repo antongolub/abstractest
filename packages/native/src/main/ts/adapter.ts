@@ -91,10 +91,10 @@ const _describe =
 const _mock: Mocker = {
   // eslint-disable-next-line
   // @ts-ignore
-  spyOn(...args: any[]) {                 return _api.mock.spyOn(...args) },
+  spyOn(...args: any[]) {        return _api.mock.spyOn(...args) },
   // eslint-disable-next-line
   // @ts-ignore
-  fn(...args: any[]) {          return _api.mock.fn(...args) },
+  fn(...args: any[]) { return _api.mock.fn(...args) },
 }
 
 export const api: TestApi = {

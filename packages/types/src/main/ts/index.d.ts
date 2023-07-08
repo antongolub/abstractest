@@ -113,7 +113,11 @@ declare module '@abstractest/types' {
       stringContaining(string: string): any
       stringMatching(value: string | RegExp): any
     }
-    (val: any): Asserters & {not: Asserters}
+    (val: any): Asserters & {
+      not: Asserters,
+      resolves: Asserters & {not: Asserters},
+      rejects: Asserters & {not: Asserters}
+    }
   }
 
   export type Mocker = {

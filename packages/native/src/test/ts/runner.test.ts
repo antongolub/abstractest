@@ -65,11 +65,22 @@ describe('runner()', () => {
       runner.api.describe(name, fn)
     })
 
-    describe('`expect()`', () => {
-      it('provides `toEqual`', () => {
+    describe('`expect()` provides', () => {
+      it('`toEqual`', () => {
         runner.api.expect('a').toEqual('a')
 
         assert.throws(() => runner.api.expect('a').toEqual('b'))
+      })
+      it('`resolves` and `rejects` handlers', async () => {
+        const fn = (val, err?) => err ? Promise.reject(err) : Promise.resolve(val)
+
+        await runner.api.expect(fn(1)).resolves.toBe(1)
+        await runner.api.expect(fn(null, 'err')).rejects.toBe('err')
+      })
+      it('negative `not` matchers', () => {
+        runner.api.expect('a').not.toBe('b')
+
+        assert.throws(() => runner.api.expect('a').not.toBe('a'), /expect.+not/)
       })
     })
   })

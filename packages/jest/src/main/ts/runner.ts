@@ -70,6 +70,7 @@ const touchJest = async (cwd: string, include: string[]) => {
     ],
     testMatch: include.map(item => `${cwd}/${item}`),
     testTimeout: 2000,
+    resetMocks: false
   }))
 
   await fs.writeFile(jestSetupPath, script, 'utf8')

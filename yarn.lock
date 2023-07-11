@@ -80,6 +80,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@abstractest/localstorage@workspace:packages/localstorage":
+  version: 0.0.0-use.local
+  resolution: "@abstractest/localstorage@workspace:packages/localstorage"
+  dependencies:
+    "@abstractest/infra": "workspace:*"
+    "@abstractest/types": "workspace:*"
+    "@types/node": "npm:^20.4.1"
+  languageName: unknown
+  linkType: soft
+
 "@abstractest/mock@workspace:*, @abstractest/mock@workspace:packages/mock":
   version: 0.0.0-use.local
   resolution: "@abstractest/mock@workspace:packages/mock"

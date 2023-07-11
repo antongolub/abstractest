@@ -12,7 +12,7 @@
   "scripts": {
     "build": "exit 0",
     "test": "exit 0",
-    "bulk:topobuild": "cd $INIT_CWD && zx-bulk-release --dry-run --include-private --ignore=@antongolub/infra"
+    "bulk:topobuild": "cd $INIT_CWD && zx-bulk-release --dry-run --include-private --ignore=@abstractest/infra"
   },
   "devDependencies": {
     "@antongolub/git-root": "^1.5.13",

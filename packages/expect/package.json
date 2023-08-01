@@ -24,8 +24,8 @@
   ],
   "dependencies": {
     "@abstractest/types": "workspace:*",
-    "expect": "^29.6.1",
-    "jest-snapshot": "^29.6.1"
+    "expect": "^29.6.2",
+    "jest-snapshot": "^29.6.2"
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*"

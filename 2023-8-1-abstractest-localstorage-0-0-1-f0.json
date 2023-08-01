@@ -1,0 +1,9 @@
+{
+  "META_VERSION": "1",
+  "name": "@abstractest/localstorage",
+  "hash": "2d4e0a8954ee5a0ed4bbd9af2879f3f8c00b9883",
+  "version": "0.0.1",
+  "dependencies": {
+    "@abstractest/types": "0.5.1"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "META_VERSION": "1",
+  "name": "abstractest",
+  "hash": "2d4e0a8954ee5a0ed4bbd9af2879f3f8c00b9883",
+  "version": "0.1.7",
+  "dependencies": {
+    "@abstractest/core": "0.4.4"
+  }
+}

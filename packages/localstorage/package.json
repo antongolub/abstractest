@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",
-    "@types/node": "^20.4.5"
+    "@types/node": "^20.11.0"
   },
   "scripts": {
     "build": "concurrently --kill-others-on-fail 'npm:build:*'",

@@ -21,11 +21,11 @@
     "@abstractest/core": "workspace:*",
     "@abstractest/mock": "workspace:*",
     "jest": "^29.7.0",
-    "ts-jest": "^29.1.1"
+    "ts-jest": "^29.1.2"
   },
   "devDependencies": {
     "@abstractest/infra": "workspace:*",
-    "@types/node": "^20.11.0"
+    "@types/node": "^20.11.20"
   },
   "files": [
     "target/cjs",
